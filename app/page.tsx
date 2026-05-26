@@ -5,6 +5,7 @@ import Hero from '@/components/Hero';
 import Differentials from '@/components/Differentials';
 import Services from '@/components/Services';
 import Results from '@/components/Results';
+import Gallery from '@/components/Gallery';
 import About from '@/components/About';
 import Testimonials from '@/components/Testimonials';
 import CTASection from '@/components/CTASection';
@@ -19,9 +20,10 @@ export default function HomePage() {
       <Navbar />
       <main>
         <Hero />
-        <Differentials />
-        <Services />
         <Results />
+        <Services />
+        <Differentials />
+        <Gallery />
         <About />
         <Testimonials />
         <CTASection />

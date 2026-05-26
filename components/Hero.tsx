@@ -22,8 +22,8 @@ const item = {
 };
 
 const stats = [
-  { value: '500+', label: 'Pacientes' },
-  { value: '10+', label: 'Anos de Experiência' },
+  { value: '1000+', label: 'Pacientes' },
+  { value: '25+', label: 'Anos de Experiência' },
   { value: '98%', label: 'Satisfação' },
 ];
 

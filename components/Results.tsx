@@ -157,42 +157,6 @@ export default function Results() {
           ))}
         </div>
 
-        {/* Gallery strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="mt-20"
-        >
-          <p className="font-sans text-xs text-muted tracking-widest uppercase text-center mb-8">
-            Mais resultados
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              '/img/exemplo-3.png',
-              '/img/exemplo-4.png',
-              '/img/antes-e-depois.jpeg',
-              '/img/exemplo-5.png',
-            ].map((src, i) => (
-              <motion.div
-                key={src}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.6, delay: 0.6 + i * 0.08 }}
-                className="aspect-square rounded-2xl overflow-hidden group relative"
-              >
-                <Image
-                  src={src}
-                  alt={`Resultado clínico ${i + 1}`}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  sizes="(max-width: 768px) 45vw, 25vw"
-                />
-                <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/20 transition-colors duration-300 rounded-2xl" />
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );

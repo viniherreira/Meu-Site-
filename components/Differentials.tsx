@@ -19,9 +19,9 @@ const differentials = [
   },
   {
     icon: CheckCircle2,
-    title: 'Resultados Previsíveis',
+    title: 'Resultados Naturais',
     description:
-      'Simulação digital antes do tratamento. Você visualiza o resultado esperado antes de começar.',
+      'Estética que respeita sua identidade. Cada detalhe planejado para um resultado harmonioso e natural.',
   },
   {
     icon: Heart,

@@ -12,13 +12,13 @@ const credentials = [
   { icon: CheckCircle2, text: 'Especialista em Implantes Dentários' },
   { icon: CheckCircle2, text: 'Carga Imediata Certificada' },
   { icon: CheckCircle2, text: 'Lentes de Contato Dental' },
-  { icon: CheckCircle2, text: 'Planejamento Digital 3D' },
+  { icon: CheckCircle2, text: 'Cirurgias Odontológicas' },
 ];
 
 const badges = [
   { icon: Award, label: 'CRO-SP', value: '71275' },
-  { icon: GraduationCap, label: 'Experiência', value: '10+ Anos' },
-  { icon: Users, label: 'Pacientes', value: '500+' },
+  { icon: GraduationCap, label: 'Experiência', value: '25+ Anos' },
+  { icon: Users, label: 'Pacientes', value: '1000+' },
 ];
 
 export default function About() {
@@ -108,9 +108,9 @@ export default function About() {
                 excepcionais — previsíveis, seguros e completamente naturais.
               </p>
               <p>
-                Com formação sólida e atualização constante nas mais modernas técnicas,
-                cada tratamento é planejado individualmente, garantindo que o resultado
-                final supere sempre as expectativas do paciente.
+                Com mais de 25 anos de experiência e atualização constante nas
+                mais modernas técnicas, cada tratamento é planejado individualmente,
+                garantindo que o resultado final supere sempre as expectativas do paciente.
               </p>
             </div>
 
