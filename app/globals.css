@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #C09A5C;
+  --gold-light: #E8D5B0;
+  --dark: #0F1117;
+  --cream: #FAFAF7;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  background-color: #FAFAF7;
+  color: #2A2520;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  body { cursor: auto; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #FAFAF7; }
+::-webkit-scrollbar-thumb { background: #C09A5C; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #8B6E36; }
+
+/* Selection */
+::selection { background: rgba(192, 154, 92, 0.15); color: #0F1117; }
+
+/* Smooth image rendering */
+img { image-rendering: -webkit-optimize-contrast; }
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid #C09A5C;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@layer components {
+  .container-main {
+    @apply max-w-7xl mx-auto px-6 lg:px-12;
+  }
+
+  .section-badge {
+    @apply inline-flex items-center gap-2 text-gold text-xs font-sans tracking-[0.2em] uppercase font-medium;
+  }
+
+  .section-badge::before {
+    content: '';
+    @apply block w-8 h-px bg-gold;
+  }
+
+  .section-heading {
+    @apply font-cormorant font-light text-dark leading-tight;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-3 px-8 py-4 bg-dark text-white font-sans font-medium rounded-full
+           hover:bg-charcoal transition-all duration-300;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-8 py-4 border border-dark/20 text-dark font-sans font-medium
+           rounded-full hover:bg-dark/5 transition-all duration-300;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center gap-3 px-8 py-4 bg-gold text-white font-sans font-medium rounded-full
+           hover:bg-gold-dark transition-all duration-300 shadow-lg shadow-gold/20;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+
+  .glass {
+    @apply bg-white/80 backdrop-blur-md border border-white/60;
+  }
+
+  .gold-border {
+    @apply border border-gold/20;
+  }
+
+  .section-py {
+    @apply py-24 lg:py-36;
+  }
+}
