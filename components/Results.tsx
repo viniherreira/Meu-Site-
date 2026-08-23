@@ -1,121 +1,207 @@
 'use client';
 
-import { useRef, useState, useCallback, useEffect } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useCallback, useRef, useState } from 'react';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion, useInView } from 'framer-motion';
 
-interface CaseItem {
-  before: string;
-  after: string;
-  title: string;
-  subtitle: string;
-}
+type Caso = {
+  id: string;
+  antes: string;
+  depois: string;
+  titulo: string;
+  detalhe: string;
+};
 
-const cases: CaseItem[] = [
+/**
+ * As imagens em /img/casos foram reenquadradas (scripts/gerar-casos.ps1) para que,
+ * dentro de cada par, a boca fique na mesma posicao e na mesma escala. E isso que
+ * faz o comparador alinhar ao arrastar: o CSS sozinho nao resolve, porque as fotos
+ * originais tem proporcoes e enquadramentos diferentes.
+ */
+const casos: Caso[] = [
   {
-    before: '/img/1antes-semdente.jpeg',
-    after: '/img/1depois-comdente.jpeg',
-    title: 'Reabilitação Completa',
-    subtitle: 'Implantes com carga imediata',
+    id: 'caso-1',
+    antes: '/img/casos/caso-1-antes.jpg',
+    depois: '/img/casos/caso-1-depois.jpg',
+    titulo: 'Reabilitação com implantes',
+    detalhe: 'Prótese fixa sobre implantes, arcada superior',
   },
   {
-    before: '/img/antes-f.jpeg',
-    after: '/img/depois-f.jpeg',
-    title: 'Estética Dental',
-    subtitle: 'Lentes de contato e clareamento',
+    id: 'caso-2',
+    antes: '/img/casos/caso-2-antes.jpg',
+    depois: '/img/casos/caso-2-depois.jpg',
+    titulo: 'Reabilitação estética',
+    detalhe: 'Restabelecimento de forma, cor e proporção',
   },
   {
-    before: '/img/mulher-antes.jpeg',
-    after: '/img/mulher-depos.jpeg',
-    title: 'Harmonização Oral',
-    subtitle: 'Alinhamento e reabilitação estética',
+    id: 'caso-3',
+    antes: '/img/casos/caso-3-antes.jpg',
+    depois: '/img/casos/caso-3-depois.jpg',
+    titulo: 'Reconstrução do sorriso',
+    detalhe: 'Substituição de dentes ausentes e acabamento estético',
   },
 ];
 
-function ComparisonSlider({ before, after, title, subtitle }: CaseItem) {
-  const [position, setPosition] = useState(50);
-  const [dragging, setDragging] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+function Comparador({ caso }: { caso: Caso }) {
+  const [pos, setPos] = useState(50);
+  const [arrastando, setArrastando] = useState(false);
+  const [interagiu, setInteragiu] = useState(false);
+  const quadroRef = useRef<HTMLDivElement>(null);
 
-  const updatePosition = useCallback((clientX: number) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    setPosition(Math.min(Math.max((x / rect.width) * 100, 2), 98));
+  const mover = useCallback((clientX: number) => {
+    const quadro = quadroRef.current;
+    if (!quadro) return;
+    const { left, width } = quadro.getBoundingClientRect();
+    setPos(Math.min(100, Math.max(0, ((clientX - left) / width) * 100)));
   }, []);
 
-  useEffect(() => {
-    if (!dragging) return;
-    const onMove = (e: MouseEvent) => updatePosition(e.clientX);
-    const onTouchMove = (e: TouchEvent) => updatePosition(e.touches[0].clientX);
-    const onUp = () => setDragging(false);
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseup', onUp);
-    document.addEventListener('touchmove', onTouchMove, { passive: true });
-    document.addEventListener('touchend', onUp);
-    return () => {
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseup', onUp);
-      document.removeEventListener('touchmove', onTouchMove);
-      document.removeEventListener('touchend', onUp);
-    };
-  }, [dragging, updatePosition]);
+  // Pointer Events cobrem mouse, toque e caneta num caminho so, e o pointer capture
+  // mantem o arrasto funcionando mesmo quando o cursor sai do quadro.
+  const aoPressionar = (e: React.PointerEvent<HTMLDivElement>) => {
+    // Se a captura falhar, o arrasto ainda funciona dentro do quadro — não vale
+    // deixar a exceção abortar o handler inteiro.
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {
+      /* ponteiro já não está ativo */
+    }
+    setArrastando(true);
+    setInteragiu(true);
+    mover(e.clientX);
+  };
+
+  const aoMover = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (arrastando) mover(e.clientX);
+  };
+
+  const aoSoltar = (e: React.PointerEvent<HTMLDivElement>) => {
+    try {
+      if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      }
+    } catch {
+      /* nada a liberar */
+    }
+    setArrastando(false);
+  };
+
+  const aoTeclar = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const passo = e.shiftKey ? 10 : 4;
+    const destino =
+      e.key === 'ArrowLeft' ? pos - passo
+      : e.key === 'ArrowRight' ? pos + passo
+      : e.key === 'Home' ? 0
+      : e.key === 'End' ? 100
+      : null;
+
+    if (destino === null) return;
+    e.preventDefault();
+    setInteragiu(true);
+    setPos(Math.min(100, Math.max(0, destino)));
+  };
 
   return (
-    <div className="flex flex-col gap-5">
-      {/* Slider */}
+    <figure className="group">
       <div
-        ref={containerRef}
-        onMouseDown={(e) => { setDragging(true); updatePosition(e.clientX); }}
-        onTouchStart={(e) => { setDragging(true); updatePosition(e.touches[0].clientX); }}
-        className="relative aspect-[4/3] rounded-3xl overflow-hidden cursor-ew-resize select-none group shadow-xl"
+        ref={quadroRef}
+        role="slider"
+        tabIndex={0}
+        aria-label={'Comparar antes e depois: ' + caso.titulo}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={Math.round(pos)}
+        aria-valuetext={Math.round(pos) + '% do resultado final visível'}
+        onPointerDown={aoPressionar}
+        onPointerMove={aoMover}
+        onPointerUp={aoSoltar}
+        onPointerCancel={aoSoltar}
+        onKeyDown={aoTeclar}
+        className="relative aspect-video w-full overflow-hidden rounded-2xl bg-dark/5
+                   select-none touch-pan-y cursor-ew-resize
+                   ring-1 ring-dark/10 focus-visible:ring-2 focus-visible:ring-gold"
       >
-        {/* BEFORE */}
-        <div className="absolute inset-0">
-          <Image src={before} alt="Antes do tratamento" fill className="object-cover" sizes="(max-width: 768px) 90vw, 400px" />
-          <div className="absolute bottom-4 left-4 z-10 bg-black/60 backdrop-blur-sm text-white text-xs font-sans font-medium px-3 py-1.5 rounded-full tracking-wide">
-            Antes
-          </div>
-        </div>
+        {/* Antes: camada de base */}
+        <Image
+          src={caso.antes}
+          alt={caso.titulo + ' — antes do tratamento'}
+          fill
+          draggable={false}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="pointer-events-none object-cover"
+        />
 
-        {/* AFTER – revealed by position */}
+        {/* Depois: revelado da esquerda para a direita */}
         <div
           className="absolute inset-0"
-          style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
+          style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
         >
-          <Image src={after} alt="Depois do tratamento" fill className="object-cover" sizes="(max-width: 768px) 90vw, 400px" />
-          <div className="absolute bottom-4 right-4 z-10 bg-gold/90 backdrop-blur-sm text-white text-xs font-sans font-medium px-3 py-1.5 rounded-full tracking-wide">
-            Depois
-          </div>
+          <Image
+            src={caso.depois}
+            alt={caso.titulo + ' — depois do tratamento'}
+            fill
+            draggable={false}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="pointer-events-none object-cover"
+          />
         </div>
 
-        {/* Divider line */}
+        {/* Etiquetas: somem quando o divisor chega perto delas */}
+        <span
+          className="absolute bottom-3 left-3 rounded-md bg-dark/70 px-2.5 py-1
+                     text-[11px] font-medium uppercase tracking-wider text-white
+                     transition-opacity duration-200"
+          style={{ opacity: pos > 22 ? 1 : 0 }}
+        >
+          Depois
+        </span>
+        <span
+          className="absolute bottom-3 right-3 rounded-md bg-dark/55 px-2.5 py-1
+                     text-[11px] font-medium uppercase tracking-wider text-white
+                     transition-opacity duration-200"
+          style={{ opacity: pos < 78 ? 1 : 0 }}
+        >
+          Antes
+        </span>
+
+        {/* Divisor e manopla */}
         <div
-          className="absolute top-0 bottom-0 z-20 flex items-center justify-center pointer-events-none"
-          style={{ left: `${position}%`, transform: 'translateX(-50%)' }}
+          className="pointer-events-none absolute inset-y-0 z-10 w-px bg-white/90
+                     shadow-[0_0_6px_rgba(0,0,0,0.35)]"
+          style={{ left: `${pos}%` }}
         >
-          <div className="absolute inset-y-0 w-0.5 bg-white/90 shadow-sm" />
-          <div className="relative w-10 h-10 bg-white rounded-full shadow-xl flex items-center justify-center pointer-events-none">
-            <ChevronLeft size={14} className="text-dark -mr-0.5" />
-            <ChevronRight size={14} className="text-dark -ml-0.5" />
-          </div>
+          <span
+            className={`absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2
+                        items-center justify-center rounded-full bg-white shadow-lg
+                        transition-transform duration-150 ${arrastando ? 'scale-95' : ''}`}
+          >
+            <svg width="20" height="12" viewBox="0 0 20 12" aria-hidden="true" className="text-dark/70">
+              <path
+                d="M6 1 1.5 6 6 11M14 1l4.5 5-4.5 5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
         </div>
 
-        {/* Hint overlay */}
-        <div className="absolute inset-0 flex items-center justify-center z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-          <div className="bg-black/30 backdrop-blur-sm text-white text-xs font-sans px-4 py-2 rounded-full">
-            Arraste para comparar
-          </div>
-        </div>
+        {/* Dica discreta, some no primeiro toque */}
+        <span
+          className="pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 rounded-full
+                     bg-dark/60 px-3 py-1 text-[11px] text-white transition-opacity duration-300"
+          style={{ opacity: interagiu ? 0 : 1 }}
+        >
+          Arraste para comparar
+        </span>
       </div>
 
-      {/* Info */}
-      <div className="text-center">
-        <h3 className="font-cormorant text-2xl font-medium text-dark">{title}</h3>
-        <p className="font-sans text-sm text-muted mt-1">{subtitle}</p>
-      </div>
-    </div>
+      <figcaption className="mt-4">
+        <h3 className="font-cormorant text-xl text-dark">{caso.titulo}</h3>
+        <p className="mt-0.5 text-sm text-muted">{caso.detalhe}</p>
+      </figcaption>
+    </figure>
   );
 }
 
@@ -126,37 +212,41 @@ export default function Results() {
   return (
     <section id="resultados" ref={ref} className="section-py bg-white">
       <div className="container-main">
-        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-20"
+          transition={{ duration: 0.5 }}
+          className="max-w-2xl"
         >
-          <span className="section-badge justify-center mb-5">Transformações Reais</span>
-          <h2 className="section-heading text-5xl lg:text-6xl mb-6">
-            Resultados que <span className="italic text-gold">falam</span> por si
+          <span className="section-badge mb-5">Casos clínicos</span>
+          <h2 className="section-heading text-4xl lg:text-5xl">
+            Antes e depois, sem retoque
           </h2>
-          <p className="font-sans text-muted max-w-xl mx-auto leading-relaxed">
-            Arraste o comparador e veja a transformação real de cada paciente.
-            Casos realizados com planejamento digital e atenção ao detalhe.
+          <p className="mt-5 leading-relaxed text-muted">
+            Arraste o divisor de cada foto para ver o mesmo paciente antes e depois
+            do tratamento. As duas imagens de cada caso usam o mesmo enquadramento e
+            a mesma escala, para que a comparação seja honesta.
           </p>
         </motion.div>
 
-        {/* Sliders grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {cases.map((c, i) => (
+        <div className="mt-14 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+          {casos.map((caso, i) => (
             <motion.div
-              key={c.title}
-              initial={{ opacity: 0, y: 50 }}
+              key={caso.id}
+              initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
             >
-              <ComparisonSlider {...c} />
+              <Comparador caso={caso} />
             </motion.div>
           ))}
         </div>
 
+        <p className="mt-12 max-w-2xl text-xs leading-relaxed text-muted">
+          Imagens de pacientes reais, publicadas com autorização. Cada caso é único:
+          o resultado depende das condições clínicas iniciais, do plano de tratamento
+          escolhido e da resposta de cada organismo.
+        </p>
       </div>
     </section>
   );
