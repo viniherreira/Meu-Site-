@@ -1,38 +1,36 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { Clock, Instagram, Mail, MapPin, Phone } from 'lucide-react';
 import WhatsAppIcon from './WhatsAppIcon';
+import { tratamentos } from '@/content/tratamentos';
 import {
-  CIDADE,
+  CIDADES_ATENDIDAS,
   CRO,
   EMAIL,
+  ENDERECO_LINHA,
   HORARIO,
   INSTAGRAM,
+  MAPS_ROTA,
+  NOME_CLINICA,
   TELEFONE,
   TELEFONE_EXIBICAO,
   WA_AGENDAR,
 } from '@/lib/contato';
 
 const navegacao = [
-  { label: 'Início', href: '#inicio' },
-  { label: 'Resultados', href: '#resultados' },
-  { label: 'Tratamentos', href: '#tratamentos' },
-  { label: 'Crianças', href: '#odontopediatria' },
-  { label: 'A doutora', href: '#sobre' },
-  { label: 'Depoimentos', href: '#depoimentos' },
+  { label: 'Início', href: '/' },
+  { label: 'A doutora', href: '/sobre' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contato e como chegar', href: '/contato' },
 ];
 
-const especialidades = [
-  'Implantes dentários',
-  'Carga imediata',
-  'Lentes de contato dental',
-  'Estética do sorriso',
-  'Odontopediatria',
-  'Prevenção infantil',
-];
-
+/**
+ * Nome, endereço e telefone (NAP) saem de lib/contato.ts e aparecem iguais em
+ * todas as páginas — é o que o Google cruza com o perfil do Google Meu Negócio.
+ */
 export default function Footer() {
   return (
-    <footer id="contato" className="bg-dark">
+    <footer className="bg-dark">
       <div className="container-main py-16 lg:py-20">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div>
@@ -44,7 +42,8 @@ export default function Footer() {
               className="h-9 w-auto object-contain brightness-0 invert"
             />
             <p className="mt-6 text-sm leading-relaxed text-white/70">
-              Odontologia com foco em implantes e reabilitação oral.
+              Odontologia com foco em implantes, reabilitação oral e odontopediatria.
+              Atendemos pacientes de {CIDADES_ATENDIDAS.join(', ').replace(/, ([^,]*)$/, ' e $1')}.
             </p>
             <p className="mt-4 text-sm text-white/55">{CRO}</p>
 
@@ -77,23 +76,28 @@ export default function Footer() {
             <ul className="mt-5 space-y-3">
               {navegacao.map((l) => (
                 <li key={l.href}>
-                  <a
+                  <Link
                     href={l.href}
                     className="inline-block py-1 text-sm text-white/70 transition-colors hover:text-gold"
                   >
                     {l.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </nav>
 
           <div>
-            <h2 className="text-xs uppercase tracking-[0.18em] text-white/55">Especialidades</h2>
-            <ul className="mt-5 space-y-3">
-              {especialidades.map((e) => (
-                <li key={e} className="text-sm text-white/70">
-                  {e}
+            <h2 className="text-xs uppercase tracking-[0.18em] text-white/55">Tratamentos</h2>
+            <ul className="mt-5 space-y-1">
+              {tratamentos.map((t) => (
+                <li key={t.slug}>
+                  <Link
+                    href={`/${t.slug}`}
+                    className="inline-block py-1 text-sm text-white/70 transition-colors hover:text-gold"
+                  >
+                    {t.nome}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -101,34 +105,44 @@ export default function Footer() {
 
           <div>
             <h2 className="text-xs uppercase tracking-[0.18em] text-white/55">Contato</h2>
-            <ul className="mt-5 space-y-4 text-sm text-white/70">
-              <li>
-                <a
-                  href={`tel:${TELEFONE}`}
-                  className="flex items-start gap-3 py-1 transition-colors hover:text-gold"
-                >
-                  <Phone size={15} className="mt-0.5 shrink-0" aria-hidden="true" />
-                  {TELEFONE_EXIBICAO}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`mailto:${EMAIL}`}
-                  className="flex items-start gap-3 break-all py-1 transition-colors hover:text-gold"
-                >
-                  <Mail size={15} className="mt-0.5 shrink-0" aria-hidden="true" />
-                  {EMAIL}
-                </a>
-              </li>
-              <li className="flex items-start gap-3">
-                <MapPin size={15} className="mt-0.5 shrink-0" aria-hidden="true" />
-                {CIDADE}
-              </li>
-              <li className="flex items-start gap-3">
-                <Clock size={15} className="mt-0.5 shrink-0" aria-hidden="true" />
-                {HORARIO}
-              </li>
-            </ul>
+            <address className="mt-5 not-italic">
+              <p className="text-sm font-medium text-white">{NOME_CLINICA}</p>
+              <ul className="mt-4 space-y-4 text-sm text-white/70">
+                <li>
+                  <a
+                    href={MAPS_ROTA}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-3 py-1 transition-colors hover:text-gold"
+                  >
+                    <MapPin size={15} className="mt-0.5 shrink-0" aria-hidden="true" />
+                    {ENDERECO_LINHA}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`tel:${TELEFONE}`}
+                    className="flex items-start gap-3 py-1 transition-colors hover:text-gold"
+                  >
+                    <Phone size={15} className="mt-0.5 shrink-0" aria-hidden="true" />
+                    {TELEFONE_EXIBICAO}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`mailto:${EMAIL}`}
+                    className="flex items-start gap-3 break-all py-1 transition-colors hover:text-gold"
+                  >
+                    <Mail size={15} className="mt-0.5 shrink-0" aria-hidden="true" />
+                    {EMAIL}
+                  </a>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Clock size={15} className="mt-0.5 shrink-0" aria-hidden="true" />
+                  {HORARIO}
+                </li>
+              </ul>
+            </address>
           </div>
         </div>
       </div>

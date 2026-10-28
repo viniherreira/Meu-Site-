@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
+import Link from 'next/link';
 import WhatsAppIcon from './WhatsAppIcon';
 import { WA_AGENDAR } from '@/lib/contato';
 
@@ -18,7 +19,7 @@ const atuacao = [
 const dados = [
   { valor: 'CRO-SP 71275', rotulo: 'Registro profissional' },
   { valor: '25+ anos', rotulo: 'De clínica' },
-  { valor: 'São Paulo', rotulo: 'Local de atendimento' },
+  { valor: 'Suzano, SP', rotulo: 'Local de atendimento' },
 ];
 
 export default function About() {
@@ -37,10 +38,11 @@ export default function About() {
             <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-dark/5">
               <Image
                 src="/img/atendendo.jpeg"
-                alt="Dra. Michele Herreira durante atendimento"
-                fill
-                sizes="(max-width: 1024px) 90vw, 440px"
-                className="object-cover"
+                alt="Dra. Michele Herreira durante atendimento no consultório em Suzano"
+                width={960}
+                height={1280}
+                sizes="(max-width: 1024px) calc(100vw - 48px), 460px"
+                className="h-full w-full object-cover"
               />
             </div>
 
@@ -94,15 +96,20 @@ export default function About() {
               ))}
             </ul>
 
-            <a
-              href={WA_AGENDAR}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary mt-10"
-            >
-              <WhatsAppIcon size={17} />
-              Falar com a clínica
-            </a>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <a
+                href={WA_AGENDAR}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary"
+              >
+                <WhatsAppIcon size={17} />
+                Falar com a clínica
+              </a>
+              <Link href="/sobre" className="btn-outline">
+                Conheça a doutora
+              </Link>
+            </div>
           </motion.div>
         </div>
       </div>

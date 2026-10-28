@@ -33,6 +33,20 @@ const config: Config = {
       borderRadius: {
         '4xl': '2rem',
       },
+      // Animações do topo da home em CSS puro (antes eram framer-motion).
+      keyframes: {
+        flutuar: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-9px)' },
+        },
+        girar: {
+          to: { transform: 'rotate(360deg)' },
+        },
+      },
+      animation: {
+        flutuar: 'flutuar 4.5s ease-in-out infinite',
+        girar: 'girar 60s linear infinite',
+      },
     },
   },
   plugins: [],

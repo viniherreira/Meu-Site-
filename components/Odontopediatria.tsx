@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 import { HeartHandshake, ShieldCheck, Smile } from 'lucide-react';
+import Link from 'next/link';
 import WhatsAppIcon from './WhatsAppIcon';
 import { waSobreTratamento } from '@/lib/contato';
 
@@ -38,10 +39,11 @@ export default function Odontopediatria() {
             <div className="relative aspect-[3/4] overflow-hidden rounded-[1.75rem] bg-dark/5 shadow-xl">
               <Image
                 src="/img/odontopediatria.jpeg"
-                alt="Dra. Michele Herreira atendendo um bebê no consultório"
-                fill
-                sizes="(max-width: 1024px) 90vw, 420px"
-                className="object-cover"
+                alt="Dra. Michele Herreira atendendo um bebê no consultório, em Suzano"
+                width={960}
+                height={1280}
+                sizes="(max-width: 468px) calc(100vw - 48px), 420px"
+                className="h-full w-full object-cover"
               />
             </div>
 
@@ -70,6 +72,8 @@ export default function Odontopediatria() {
             <p className="mt-5 max-w-lg leading-relaxed text-muted">
               Um programa de acompanhamento dos 3 meses aos 15 anos, com foco em
               prevenir problemas e criar uma relação tranquila da criança com o dentista.
+              Para quem procura dentista infantil em Suzano, a primeira consulta do bebê
+              pode acontecer antes mesmo do primeiro dente.
             </p>
 
             {/* Linha do tempo de idades */}
@@ -107,15 +111,20 @@ export default function Odontopediatria() {
               })}
             </div>
 
-            <a
-              href={waSobreTratamento('o programa de odontopediatria e prevenção infantil')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary mt-9"
-            >
-              <WhatsAppIcon size={17} />
-              Cuidar do sorriso do meu filho
-            </a>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <a
+                href={waSobreTratamento('o programa de odontopediatria e prevenção infantil')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary"
+              >
+                <WhatsAppIcon size={17} />
+                Cuidar do sorriso do meu filho
+              </a>
+              <Link href="/odontopediatria" className="btn-outline">
+                Odontopediatria em Suzano
+              </Link>
+            </div>
           </motion.div>
         </div>
       </div>

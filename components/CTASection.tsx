@@ -1,24 +1,30 @@
-'use client';
-
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
 import { BadgeCheck, Clock, MapPin, Phone } from 'lucide-react';
 import WhatsAppIcon from './WhatsAppIcon';
 import { CIDADE, HORARIO, TELEFONE, TELEFONE_EXIBICAO, WA_AGENDAR } from '@/lib/contato';
 
-export default function CTASection() {
-  const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
+type Props = {
+  titulo?: string;
+  texto?: string;
+  /** Link do WhatsApp com a mensagem já preenchida (padrão: agendar avaliação). */
+  whatsapp?: string;
+  rotuloBotao?: string;
+};
 
+/**
+ * Bloco escuro de agendamento no fim das páginas. Era um client component só
+ * por causa da animação de entrada; virou server component para não carregar
+ * JavaScript num trecho que é só texto e links.
+ */
+export default function CTASection({
+  titulo = 'Vamos avaliar o seu caso',
+  texto = 'Na consulta de avaliação o caso é examinado, as dúvidas são respondidas e as opções de tratamento são apresentadas com prazo e valor. A avaliação não tem custo e não gera compromisso de fechar tratamento.',
+  whatsapp = WA_AGENDAR,
+  rotuloBotao = 'Agendar pelo WhatsApp',
+}: Props) {
   return (
-    <section ref={ref} className="section-py bg-dark">
+    <section className="section-py bg-dark">
       <div className="container-main">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="max-w-2xl"
-        >
+        <div className="max-w-2xl">
           <span className="inline-flex items-center gap-3 text-xs font-medium uppercase
                            tracking-[0.18em] text-gold">
             <span className="h-px w-6 bg-gold" />
@@ -29,18 +35,14 @@ export default function CTASection() {
             className="mt-6 font-cormorant font-normal leading-[1.08] tracking-[-0.01em] text-white"
             style={{ fontSize: 'clamp(2.4rem, 4.8vw, 3.8rem)' }}
           >
-            Vamos avaliar o seu caso
+            {titulo}
           </h2>
 
-          <p className="mt-6 text-[17px] leading-relaxed text-white/70">
-            Na consulta de avaliação o caso é examinado, as dúvidas são respondidas
-            e as opções de tratamento são apresentadas com prazo e valor. A avaliação
-            não tem custo e não gera compromisso de fechar tratamento.
-          </p>
+          <p className="mt-6 text-[17px] leading-relaxed text-white/70">{texto}</p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a
-              href={WA_AGENDAR}
+              href={whatsapp}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2.5 rounded-full bg-gold
@@ -48,7 +50,7 @@ export default function CTASection() {
                          duration-200 hover:bg-gold-light"
             >
               <WhatsAppIcon size={17} />
-              Agendar pelo WhatsApp
+              {rotuloBotao}
             </a>
             <a
               href={`tel:${TELEFONE}`}
@@ -79,7 +81,7 @@ export default function CTASection() {
               <dd>Avaliação sem custo</dd>
             </div>
           </dl>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -2,51 +2,36 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import WhatsAppIcon from './WhatsAppIcon';
 import { WA_AGENDAR } from '@/lib/contato';
 
+// Links para páginas reais (antes eram âncoras da página única). "Tratamentos"
+// continua levando à lista da home, que é o hub com um resumo de cada um.
 const links = [
-  { label: 'Início', href: '#inicio' },
-  { label: 'Resultados', href: '#resultados' },
-  { label: 'Tratamentos', href: '#tratamentos' },
-  { label: 'Crianças', href: '#odontopediatria' },
-  { label: 'A doutora', href: '#sobre' },
-  { label: 'Depoimentos', href: '#depoimentos' },
-  { label: 'Contato', href: '#contato' },
+  { label: 'Início', href: '/' },
+  { label: 'Tratamentos', href: '/#tratamentos' },
+  { label: 'Crianças', href: '/odontopediatria' },
+  { label: 'A doutora', href: '/sobre' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contato', href: '/contato' },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [aberto, setAberto] = useState(false);
-  const [ativo, setAtivo] = useState('inicio');
+  const pathname = usePathname();
+  const ativo = (href: string) =>
+    href === '/' ? pathname === '/' : !href.includes('#') && pathname.startsWith(href);
 
   useEffect(() => {
     const aoRolar = () => setScrolled(window.scrollY > 24);
     aoRolar();
     window.addEventListener('scroll', aoRolar, { passive: true });
     return () => window.removeEventListener('scroll', aoRolar);
-  }, []);
-
-  // Faixa fina de detecção perto do topo: a seção que cruza essa faixa é a ativa.
-  // Com threshold simples, várias seções ficam visíveis ao mesmo tempo e a última
-  // a disparar vencia — o indicador pulava para a seção errada.
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setAtivo(entry.target.id);
-        });
-      },
-      { rootMargin: '-20% 0px -72% 0px', threshold: 0 }
-    );
-
-    links.forEach(({ href }) => {
-      const el = document.getElementById(href.slice(1));
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
   }, []);
 
   // Menu aberto no celular: trava o scroll do fundo e fecha no Esc.
@@ -82,25 +67,26 @@ export default function Navbar() {
         }`}
       >
         <div className="container-main flex h-[72px] items-center justify-between gap-6">
-          <a href="#inicio" aria-label="Dra. Michele Herreira, início" className="shrink-0">
+          <Link href="/" aria-label="Dra. Michele Herreira, início" className="shrink-0">
             <Image
               src="/img/logo-nome.png"
               alt="Dra. Michele Herreira"
               width={168}
               height={38}
-              priority
+              // eager, mas sem preload: o preload fica só com a foto principal (LCP)
+              loading="eager"
               className="h-9 w-auto object-contain"
             />
-          </a>
+          </Link>
 
           <nav className="hidden items-center gap-8 lg:flex">
             {links.map(({ label, href }) => {
-              const selecionado = ativo === href.slice(1);
+              const selecionado = ativo(href);
               return (
-                <a
+                <Link
                   key={href}
                   href={href}
-                  aria-current={selecionado ? 'true' : undefined}
+                  aria-current={selecionado ? 'page' : undefined}
                   className={`relative py-1 text-sm transition-colors duration-200 ${
                     selecionado ? 'text-dark' : 'text-muted hover:text-dark'
                   }`}
@@ -112,7 +98,7 @@ export default function Navbar() {
                       className="absolute -bottom-0.5 left-0 right-0 h-px bg-gold"
                     />
                   )}
-                </a>
+                </Link>
               );
             })}
           </nav>
@@ -154,14 +140,14 @@ export default function Navbar() {
           >
             <nav className="container-main flex flex-col py-6">
               {links.map(({ label, href }) => (
-                <a
+                <Link
                   key={href}
                   href={href}
                   onClick={() => setAberto(false)}
                   className="border-b border-dark/[0.07] py-4 text-lg text-dark"
                 >
                   {label}
-                </a>
+                </Link>
               ))}
               <a
                 href={WA_AGENDAR}

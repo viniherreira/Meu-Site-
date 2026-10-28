@@ -3,27 +3,9 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
+import { casosMontados as casos } from '@/lib/casos';
 
-/**
- * Estas fotos já vêm montadas como antes/depois pela clínica, e todas têm
- * proporção quadrada — por isso a grade usa aspect-square sem cortar nada.
- * A antiga `antes-e-depois.jpeg` saiu daqui: é o mesmo caso do comparador
- * acima e, sendo retrato 4:5, era cortada em cima e embaixo nesta grade.
- */
-const casos = [
-  {
-    src: '/img/exemplo-3.png',
-    alt: 'Paciente antes e depois da reabilitação estética — à esquerda, antes; à direita, depois',
-  },
-  {
-    src: '/img/exemplo-4.png',
-    alt: 'Paciente antes e depois da reabilitação com prótese — à esquerda, antes; à direita, depois',
-  },
-  {
-    src: '/img/exemplo-5.png',
-    alt: 'Arcada dentária antes e depois do tratamento, em vista aproximada',
-  },
-];
+// Os dados dos casos ficam em lib/casos.ts, junto com os do comparador.
 
 export default function Gallery() {
   const ref = useRef<HTMLElement>(null);
@@ -54,9 +36,10 @@ export default function Gallery() {
               <Image
                 src={caso.src}
                 alt={caso.alt}
-                fill
-                sizes="(max-width: 640px) 100vw, 33vw"
-                className="object-cover"
+                width={427}
+                height={419}
+                sizes="(max-width: 640px) calc(100vw - 48px), 340px"
+                className="h-full w-full object-cover"
               />
             </motion.div>
           ))}
