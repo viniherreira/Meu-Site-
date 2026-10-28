@@ -8,7 +8,7 @@ import Odontopediatria from '@/components/Odontopediatria';
 import Differentials from '@/components/Differentials';
 import Gallery from '@/components/Gallery';
 import About from '@/components/About';
-import AreaAtendida from '@/components/AreaAtendida';
+import Unidades from '@/components/Unidades';
 import CTASection from '@/components/CTASection';
 import { artigos } from '@/content/blog';
 import { metadataPagina } from '@/lib/seo';
@@ -34,7 +34,7 @@ export default function HomePage() {
       <Differentials />
       <Gallery />
       <About />
-      <AreaAtendida />
+      <Unidades />
 
       <section className="section-py bg-cream">
         <div className="container-main">

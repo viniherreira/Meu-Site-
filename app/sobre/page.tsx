@@ -7,7 +7,7 @@ import CTASection from '@/components/CTASection';
 import JsonLd from '@/components/JsonLd';
 import WhatsAppIcon from '@/components/WhatsAppIcon';
 import { tratamentos } from '@/content/tratamentos';
-import { CRO, ENDERECO_LINHA, WA_AGENDAR } from '@/lib/contato';
+import { CRO, UNIDADES, WA_AGENDAR } from '@/lib/contato';
 import { metadataPagina, schemaDoutora } from '@/lib/seo';
 
 export const metadata = metadataPagina({
@@ -22,7 +22,7 @@ const dados = [
   { valor: CRO, rotulo: 'Registro profissional' },
   { valor: '25+ anos', rotulo: 'Em implantodontia e reabilitação' },
   { valor: '3 meses a 15 anos', rotulo: 'Faixa do atendimento infantil' },
-  { valor: 'Suzano, SP', rotulo: 'Local de atendimento' },
+  { valor: 'Suzano e Ferraz', rotulo: 'Unidades' },
 ];
 
 export default function SobrePage() {
@@ -53,7 +53,7 @@ export default function SobrePage() {
             <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-muted">
               Cirurgiã-dentista inscrita no CRO-SP sob o número 71275, com mais de 25 anos de
               atuação em implantodontia e reabilitação oral, e atendimento odontológico infantil
-              dos 3 meses aos 15 anos. Atende em {ENDERECO_LINHA}.
+              dos 3 meses aos 15 anos. Atende em {UNIDADES.map((u) => u.cidade).join(' e ')}.
             </p>
             <a
               href={WA_AGENDAR}

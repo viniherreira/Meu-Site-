@@ -3,13 +3,13 @@ import {
   CIDADES_ATENDIDAS,
   CRO,
   EMAIL,
-  ENDERECO,
-  GEO,
   INSTAGRAM,
   NOME,
   NOME_CLINICA,
   SITE_URL,
   TELEFONE,
+  UNIDADES,
+  type Unidade,
 } from './contato';
 
 export const OG_IMAGEM = {
@@ -58,16 +58,19 @@ export function metadataPagina({ title, description, path, absoluto, tipo = 'web
   };
 }
 
+/** @id da unidade principal (Suzano) — é a que artigos e /sobre referenciam. */
 export const ID_CLINICA = `${SITE_URL}/#clinica`;
 export const ID_DOUTORA = `${SITE_URL}/sobre#dra-michele`;
 
-export const schemaClinica = {
+const idUnidade = (u: Unidade, i: number) => (i === 0 ? ID_CLINICA : `${SITE_URL}/#clinica-${u.id}`);
+
+/** Um Dentist por endereço, como o Google recomenda para negócios com mais de um local. */
+export const schemaClinica = UNIDADES.map((u, i) => ({
   '@context': 'https://schema.org',
   '@type': 'Dentist',
-  '@id': ID_CLINICA,
-  name: NOME_CLINICA,
-  description:
-    'Consultório odontológico em Suzano com implantes, carga imediata, prótese, estética do sorriso, cirurgia e odontopediatria.',
+  '@id': idUnidade(u, i),
+  name: `${NOME_CLINICA} — Unidade ${u.cidade}`,
+  description: `Consultório odontológico em ${u.cidade} com implantes, carga imediata, prótese, estética do sorriso, cirurgia e odontopediatria.`,
   url: SITE_URL,
   image: [`${SITE_URL}/og-image.png`, `${SITE_URL}/img/img-dra.jpeg`],
   logo: `${SITE_URL}/icon.png`,
@@ -76,17 +79,16 @@ export const schemaClinica = {
   priceRange: '$$',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: ENDERECO.rua,
-    addressLocality: ENDERECO.cidade,
-    addressRegion: ENDERECO.uf,
-    postalCode: ENDERECO.cep,
+    streetAddress: u.complemento ? `${u.rua}, ${u.complemento}` : u.rua,
+    addressLocality: u.cidade,
+    addressRegion: u.uf,
+    postalCode: u.cep,
     addressCountry: 'BR',
   },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: GEO.lat,
-    longitude: GEO.lng,
-  },
+  ...(u.geo && {
+    geo: { '@type': 'GeoCoordinates', latitude: u.geo.lat, longitude: u.geo.lng },
+  }),
+  hasMap: u.mapsRota,
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
@@ -98,7 +100,7 @@ export const schemaClinica = {
   areaServed: CIDADES_ATENDIDAS.map((c) => ({ '@type': 'City', name: `${c}, SP` })),
   sameAs: [INSTAGRAM],
   employee: { '@id': ID_DOUTORA },
-};
+}));
 
 export const schemaDoutora = {
   '@context': 'https://schema.org',
@@ -114,7 +116,7 @@ export const schemaDoutora = {
   },
   image: `${SITE_URL}/img/img-dra.jpeg`,
   url: `${SITE_URL}/sobre`,
-  worksFor: { '@id': ID_CLINICA },
+  worksFor: UNIDADES.map((u, i) => ({ '@id': idUnidade(u, i) })),
   knowsAbout: ['Implantodontia', 'Reabilitação oral', 'Prótese dentária', 'Odontopediatria'],
   sameAs: [INSTAGRAM],
 };

@@ -11,7 +11,7 @@ import JsonLd from '../JsonLd';
 import Texto, { textoPuro } from '../Texto';
 import WhatsAppIcon from '../WhatsAppIcon';
 import { casos, casosMontados } from '@/lib/casos';
-import { CRO, ENDERECO_LINHA, HORARIO, SITE_URL, waAvaliacaoTratamento } from '@/lib/contato';
+import { CRO, HORARIO, SITE_URL, UNIDADES, waAvaliacaoTratamento } from '@/lib/contato';
 import { metadataPagina } from '@/lib/seo';
 import { tratamentoPorSlug } from '@/content/tratamentos';
 import { artigoPorSlug } from '@/content/blog';
@@ -158,10 +158,15 @@ export default function PaginaTratamento({ t }: { t: Tratamento }) {
                   <Clock size={15} className="mt-0.5 shrink-0 text-gold-dark" aria-hidden="true" />
                   {HORARIO}
                 </li>
-                <li className="flex items-start gap-2.5">
-                  <MapPin size={15} className="mt-0.5 shrink-0 text-gold-dark" aria-hidden="true" />
-                  {ENDERECO_LINHA}
-                </li>
+                {UNIDADES.map((u) => (
+                  <li key={u.id} className="flex items-start gap-2.5">
+                    <MapPin size={15} className="mt-0.5 shrink-0 text-gold-dark" aria-hidden="true" />
+                    <span>
+                      <span className="block text-dark">Unidade {u.cidade}</span>
+                      {u.linha}
+                    </span>
+                  </li>
+                ))}
               </ul>
             </div>
           </aside>

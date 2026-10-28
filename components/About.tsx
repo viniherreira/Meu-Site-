@@ -19,7 +19,7 @@ const atuacao = [
 const dados = [
   { valor: 'CRO-SP 71275', rotulo: 'Registro profissional' },
   { valor: '25+ anos', rotulo: 'De clínica' },
-  { valor: 'Suzano, SP', rotulo: 'Local de atendimento' },
+  { valor: 'Suzano e Ferraz', rotulo: 'Unidades' },
 ];
 
 export default function About() {
