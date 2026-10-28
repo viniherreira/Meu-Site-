@@ -7,13 +7,12 @@ import {
   CIDADES_ATENDIDAS,
   CRO,
   EMAIL,
-  ENDERECO_LINHA,
   HORARIO,
   INSTAGRAM,
-  MAPS_ROTA,
   NOME_CLINICA,
   TELEFONE,
   TELEFONE_EXIBICAO,
+  UNIDADES,
   WA_AGENDAR,
 } from '@/lib/contato';
 
@@ -21,7 +20,7 @@ const navegacao = [
   { label: 'Início', href: '/' },
   { label: 'A doutora', href: '/sobre' },
   { label: 'Blog', href: '/blog' },
-  { label: 'Contato e como chegar', href: '/contato' },
+  { label: 'Unidades e como chegar', href: '/contato' },
 ];
 
 /**
@@ -108,17 +107,22 @@ export default function Footer() {
             <address className="mt-5 not-italic">
               <p className="text-sm font-medium text-white">{NOME_CLINICA}</p>
               <ul className="mt-4 space-y-4 text-sm text-white/70">
-                <li>
-                  <a
-                    href={MAPS_ROTA}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-start gap-3 py-1 transition-colors hover:text-gold"
-                  >
-                    <MapPin size={15} className="mt-0.5 shrink-0" aria-hidden="true" />
-                    {ENDERECO_LINHA}
-                  </a>
-                </li>
+                {UNIDADES.map((u) => (
+                  <li key={u.id}>
+                    <a
+                      href={u.mapsRota}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-start gap-3 py-1 transition-colors hover:text-gold"
+                    >
+                      <MapPin size={15} className="mt-0.5 shrink-0" aria-hidden="true" />
+                      <span>
+                        <span className="block text-white/90">Unidade {u.cidade}</span>
+                        {u.linha}
+                      </span>
+                    </a>
+                  </li>
+                ))}
                 <li>
                   <a
                     href={`tel:${TELEFONE}`}
