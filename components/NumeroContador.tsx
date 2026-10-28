@@ -13,9 +13,18 @@ type Props = {
   className?: string;
 };
 
+function formatar(n: number, milhar: boolean) {
+  return milhar ? n.toLocaleString('pt-BR') : String(n);
+}
+
 /**
- * Conta de 0 até `alvo` quando entra na tela. Quem tem "reduzir movimento"
- * ligado no sistema vê o número final direto, sem a animação.
+ * O HTML do servidor já sai com o número final — antes saía "0", e era isso que
+ * o Google e quem abre a página sem JavaScript viam. A contagem de 0 até `alvo`
+ * acontece só no navegador, quando o número entra na tela.
+ *
+ * O valor final fica num ::before invisível que reserva a largura (pseudo-elemento
+ * não entra no texto da página); o número animado fica por cima, em posição
+ * absoluta. Assim a contagem não empurra os vizinhos (sem CLS).
  */
 export default function NumeroContador({
   alvo,
@@ -28,14 +37,10 @@ export default function NumeroContador({
   const ref = useRef<HTMLSpanElement>(null);
   const emVista = useInView(ref, { once: true, margin: '-40px' });
   const semMovimento = useReducedMotion();
-  const [n, setN] = useState(0);
+  const [n, setN] = useState(alvo);
 
   useEffect(() => {
-    if (!emVista) return;
-    if (semMovimento) {
-      setN(alvo);
-      return;
-    }
+    if (!emVista || semMovimento) return;
     let raf = 0;
     const inicio = performance.now();
     const passo = (agora: number) => {
@@ -48,13 +53,19 @@ export default function NumeroContador({
     return () => cancelAnimationFrame(raf);
   }, [emVista, alvo, duracao, semMovimento]);
 
-  const numero = milhar ? n.toLocaleString('pt-BR') : String(n);
+  const final = `${prefixo}${formatar(alvo, milhar)}${sufixo}`;
 
   return (
-    <span ref={ref} className={className}>
-      {prefixo}
-      {numero}
-      {sufixo}
+    <span
+      ref={ref}
+      data-final={final}
+      className={`relative inline-block tabular-nums before:invisible before:content-[attr(data-final)] ${className ?? ''}`}
+    >
+      <span className="absolute left-0 top-0">
+        {prefixo}
+        {formatar(n, milhar)}
+        {sufixo}
+      </span>
     </span>
   );
 }
