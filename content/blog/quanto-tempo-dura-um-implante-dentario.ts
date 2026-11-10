@@ -3,9 +3,9 @@ import type { Artigo } from '../tipos';
 export const quantoTempoDuraImplante: Artigo = {
   slug: 'quanto-tempo-dura-um-implante-dentario',
   titulo: 'Quanto tempo dura um implante dentário?',
-  tituloSeo: 'Quanto tempo dura um implante dentário? | Dra. Michele',
+  tituloSeo: 'Quanto tempo dura um implante dentário? Vida útil real',
   description:
-    'Quanto tempo dura um implante dentário, o que faz ele durar mais ou menos e quais sinais pedem atenção. Guia da Dra. Michele Herreira, dentista em Suzano.',
+    'Quanto tempo dura um implante dentário na prática, o que faz ele durar mais e quais sinais pedem atenção. Guia da Dra. Michele Herreira, Suzano.',
   resumo:
     'O implante pode durar décadas, mas não é eterno por definição. Entenda o que separa um implante que dura de um que falha.',
   publicadoEm: '2026-10-27',

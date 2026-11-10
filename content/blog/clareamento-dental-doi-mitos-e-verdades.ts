@@ -3,9 +3,9 @@ import type { Artigo } from '../tipos';
 export const clareamentoMitos: Artigo = {
   slug: 'clareamento-dental-doi-mitos-e-verdades',
   titulo: 'Clareamento dental dói? Mitos e verdades',
-  tituloSeo: 'Clareamento dental dói? Mitos e verdades | Dra. Michele',
+  tituloSeo: 'Clareamento dental dói? Por que dói e como evitar a dor',
   description:
-    'Clareamento dental dói? Sensibilidade, enfraquecimento, carvão, bicarbonato e outros mitos e verdades explicados pela Dra. Michele Herreira, em Suzano.',
+    'Fazer clareamento nos dentes dói? Por que dá sensibilidade, quantos dias dura e como evitar a dor. Mitos e verdades com a Dra. Michele Herreira.',
   resumo:
     'O clareamento não dói, mas pode dar sensibilidade passageira. Veja o que é verdade e o que é mito sobre clarear os dentes.',
   publicadoEm: '2026-10-27',

@@ -4,8 +4,11 @@ export const odontopediatria: Tratamento = {
   slug: 'odontopediatria',
   nome: 'Odontopediatria',
   nomeTitle: 'Odontopediatria',
+  // No Search Console, "dentista infantil suzano" e "odontopediatra suzano"
+  // apareciam na posição 3 sem nenhum clique: o title não dizia "dentista infantil".
+  tituloSeo: 'Dentista Infantil em Suzano | Odontopediatria',
   description:
-    'Odontopediatria em Suzano dos 3 meses aos 15 anos: prevenção, primeira consulta do bebê e consultas tranquilas para a criança. Avaliação sem custo.',
+    'Dentista infantil em Suzano: odontopediatria dos 3 meses aos 15 anos, primeira consulta do bebê e prevenção sem trauma. Avaliação sem custo.',
   resumo:
     'Acompanhamento e prevenção para crianças dos 3 meses aos 15 anos, em consultas leves e no tempo de cada fase.',
   intro: [

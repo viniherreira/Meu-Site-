@@ -14,6 +14,12 @@ export type Tratamento = {
   nome: string;
   /** Nome no title, com iniciais maiúsculas: "Implante Dentário". */
   nomeTitle: string;
+  /**
+   * Title completo (até 60 caracteres), quando o padrão "[Tratamento] em Suzano"
+   * não bate com o que as pessoas buscam — ex.: "dentista infantil" em vez de
+   * "odontopediatria", visto no Search Console.
+   */
+  tituloSeo?: string;
   /** Até 155 caracteres, com benefício, cidade e "Avaliação sem custo". */
   description: string;
   /** Resumo de uma ou duas frases para o card da home. */

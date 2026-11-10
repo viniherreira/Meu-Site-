@@ -3,9 +3,9 @@ import type { Artigo } from '../tipos';
 export const cargaImediataMesmoDia: Artigo = {
   slug: 'carga-imediata-dente-fixo-no-mesmo-dia',
   titulo: 'Carga imediata: é possível sair com dente fixo no mesmo dia?',
-  tituloSeo: 'Carga imediata: dente fixo no mesmo dia é possível?',
+  tituloSeo: 'Dente fixo no mesmo dia: como funciona a carga imediata',
   description:
-    'Quando a carga imediata permite sair com dente fixo no mesmo dia, quem pode fazer e quais cuidados exige. Explicação da Dra. Michele Herreira, em Suzano.',
+    'É possível sair com dente fixo no mesmo dia? Como funciona a carga imediata, quem pode fazer e os cuidados. Dra. Michele Herreira, em Suzano.',
   resumo:
     'Em casos selecionados, sim — mas com um dente provisório e com regras claras. Veja quando a técnica é indicada e quando é melhor esperar.',
   publicadoEm: '2026-10-27',
