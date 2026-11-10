@@ -3,9 +3,9 @@ import type { Artigo } from '../tipos';
 export const lenteEstragaDente: Artigo = {
   slug: 'lente-de-contato-dental-estraga-o-dente',
   titulo: 'Lente de contato dental estraga o dente?',
-  tituloSeo: 'Lente de contato dental estraga o dente? | Dra. Michele',
+  tituloSeo: 'Lente no dente estraga o dente? Desgaste e como fica embaixo',
   description:
-    'Lente de contato dental estraga o dente? O que acontece com o dente embaixo, quando há risco e como escolher bem. Dra. Michele Herreira, Suzano.',
+    'Lente no dente lixa o dente? Quanto desgasta, como fica o dente por baixo da lente e quando há risco. Explicação da Dra. Michele Herreira, Suzano.',
   resumo:
     'Bem indicada e com preparo mínimo, não. O problema aparece no excesso de desgaste e nos casos mal indicados — veja como reconhecer cada um.',
   publicadoEm: '2026-10-27',

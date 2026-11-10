@@ -3,9 +3,9 @@ import type { Artigo } from '../tipos';
 export const idadeBebeDentista: Artigo = {
   slug: 'com-que-idade-levar-o-bebe-ao-dentista',
   titulo: 'Com que idade levar o bebê ao dentista?',
-  tituloSeo: 'Com que idade levar o bebê ao dentista? | Dra. Michele',
+  tituloSeo: 'Quando levar o bebê ao dentista pela primeira vez?',
   description:
-    'Com que idade levar o bebê ao dentista, como é a primeira consulta e os cuidados em casa desde o primeiro dente. Dra. Michele Herreira, em Suzano.',
+    'Quando levar o bebê ao dentista pela primeira vez, como é a consulta e os cuidados desde o primeiro dente. Orientação da Dra. Michele Herreira.',
   resumo:
     'A recomendação é até o primeiro aniversário — e o acompanhamento pode começar antes. Veja o que acontece na primeira consulta e como cuidar em casa.',
   publicadoEm: '2026-10-27',

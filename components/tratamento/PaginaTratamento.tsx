@@ -21,9 +21,10 @@ const CIDADE_PRINCIPAL = 'Suzano';
 
 export function metadataTratamento(t: Tratamento) {
   return metadataPagina({
-    title: `${t.nomeTitle} em ${CIDADE_PRINCIPAL}`,
+    title: t.tituloSeo ?? `${t.nomeTitle} em ${CIDADE_PRINCIPAL}`,
     description: t.description,
     path: `/${t.slug}`,
+    absoluto: Boolean(t.tituloSeo),
   });
 }
 
