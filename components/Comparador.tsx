@@ -8,7 +8,14 @@ import { SIZES_COMPARADOR, type Caso } from '@/lib/casos';
  * Comparador antes/depois com divisor arrastável. Usado na home e nas páginas
  * de tratamento que têm caso clínico publicado.
  */
-export default function Comparador({ caso, sizes = SIZES_COMPARADOR }: { caso: Caso; sizes?: string }) {
+type Props = {
+  caso: Caso;
+  sizes?: string;
+  /** true quando o comparador abre a página (é o LCP): pré-carrega as duas fotos. */
+  preload?: boolean;
+};
+
+export default function Comparador({ caso, sizes = SIZES_COMPARADOR, preload = false }: Props) {
   const [pos, setPos] = useState(50);
   const [arrastando, setArrastando] = useState(false);
   const [interagiu, setInteragiu] = useState(false);
@@ -93,6 +100,7 @@ export default function Comparador({ caso, sizes = SIZES_COMPARADOR }: { caso: C
           width={1600}
           height={900}
           draggable={false}
+          preload={preload}
           sizes={sizes}
           className="pointer-events-none absolute inset-0 h-full w-full object-cover"
         />
@@ -108,6 +116,7 @@ export default function Comparador({ caso, sizes = SIZES_COMPARADOR }: { caso: C
             width={1600}
             height={900}
             draggable={false}
+            preload={preload}
             sizes={sizes}
             className="pointer-events-none absolute inset-0 h-full w-full object-cover"
           />

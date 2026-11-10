@@ -32,6 +32,11 @@ export type Tratamento = {
   /** ids de `casos` (comparador) e `casosMontados` (lib/casos.ts). */
   casos?: string[];
   casosMontados?: string[];
+  /**
+   * id do caso (comparador ou montado) que abre a página, no lugar da foto do
+   * topo. Sem ele, o topo mostra `imagem`.
+   */
+  destaque?: string;
   relacionados: string[];
   /** slug do artigo do blog sobre o tema, se houver. */
   artigo?: string;

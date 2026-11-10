@@ -110,6 +110,7 @@ export const esteticaDoSorriso: Tratamento = {
   ],
   casos: ['caso-2'],
   casosMontados: ['exemplo-3'],
+  destaque: 'caso-2',
   relacionados: ['lente-de-contato-dental', 'clareamento-dental', 'protese-dentaria'],
   mensagem: 'estética do sorriso',
   procedimento: {

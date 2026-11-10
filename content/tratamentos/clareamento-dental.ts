@@ -101,6 +101,7 @@ export const clareamentoDental: Tratamento = {
     },
   ],
   casosMontados: ['clareamento-1'],
+  destaque: 'clareamento-1',
   relacionados: ['lente-de-contato-dental', 'estetica-do-sorriso'],
   artigo: 'clareamento-dental-doi-mitos-e-verdades',
   mensagem: 'clareamento dental',

@@ -110,6 +110,7 @@ export const proteseDentaria: Tratamento = {
   ],
   casos: ['caso-3'],
   casosMontados: ['exemplo-4'],
+  destaque: 'caso-3',
   relacionados: ['implante-dentario', 'carga-imediata', 'estetica-do-sorriso'],
   mensagem: 'prótese dentária',
   procedimento: {

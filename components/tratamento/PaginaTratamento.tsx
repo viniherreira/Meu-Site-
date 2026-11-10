@@ -10,7 +10,7 @@ import CTASection from '../CTASection';
 import JsonLd from '../JsonLd';
 import Texto, { textoPuro } from '../Texto';
 import WhatsAppIcon from '../WhatsAppIcon';
-import { casos, casosMontados } from '@/lib/casos';
+import { casos, casosMontados, type Caso, type CasoMontado } from '@/lib/casos';
 import { CRO, HORARIO, SITE_URL, UNIDADES, waAvaliacaoTratamento } from '@/lib/contato';
 import { metadataPagina } from '@/lib/seo';
 import { tratamentoPorSlug } from '@/content/tratamentos';
@@ -28,6 +28,13 @@ export function metadataTratamento(t: Tratamento) {
   });
 }
 
+/** A imagem que abre a página: a do caso em destaque ou, sem caso, a foto do topo. */
+function imagemPrincipal(t: Tratamento) {
+  const comparador = casos.find((c) => c.id === t.destaque);
+  if (comparador) return comparador.depois;
+  return casosMontados.find((c) => c.id === t.destaque)?.src ?? t.imagem.src;
+}
+
 function schemaProcedimento(t: Tratamento) {
   return {
     '@context': 'https://schema.org',
@@ -40,19 +47,92 @@ function schemaProcedimento(t: Tratamento) {
     howPerformed: t.procedimento.comoE,
     followup: t.procedimento.acompanhamento,
     relevantSpecialty: 'https://schema.org/Dentistry',
-    image: `${SITE_URL}${t.imagem.src}`,
+    image: `${SITE_URL}${imagemPrincipal(t)}`,
   };
+}
+
+const AVISO_CASO = 'Caso real, publicado com autorização. O resultado varia de pessoa para pessoa.';
+
+/**
+ * Primeira imagem da página: o antes/depois do tratamento quando existe caso
+ * publicado (é o que o paciente quer ver primeiro); senão, a foto da clínica.
+ * É o LCP da página, por isso pré-carrega.
+ */
+function FotoDoTopo({
+  t,
+  comparador,
+  montado,
+}: {
+  t: Tratamento;
+  comparador?: Caso;
+  montado?: CasoMontado;
+}) {
+  if (comparador) {
+    return (
+      <div className="mx-auto w-full max-w-[520px]">
+        <Comparador
+          caso={comparador}
+          preload
+          sizes="(max-width: 568px) calc(100vw - 48px), 520px"
+        />
+        <p className="mt-2 text-xs text-muted">{AVISO_CASO}</p>
+      </div>
+    );
+  }
+
+  if (montado) {
+    const retrato = montado.height > montado.width;
+    return (
+      <figure className={`mx-auto w-full ${retrato ? 'max-w-[340px]' : 'max-w-[460px]'}`}>
+        <div className="overflow-hidden rounded-[1.25rem] bg-dark/5 shadow-xl ring-1 ring-dark/10">
+          <Image
+            src={montado.src}
+            alt={montado.alt}
+            width={montado.width}
+            height={montado.height}
+            preload
+            sizes={`(max-width: ${retrato ? 388 : 508}px) calc(100vw - 48px), ${retrato ? 340 : 460}px`}
+            className="h-auto w-full"
+          />
+        </div>
+        <figcaption className="mt-3">
+          <span className="block font-cormorant text-xl text-dark">Antes e depois</span>
+          <span className="mt-0.5 block text-xs text-muted">{AVISO_CASO}</span>
+        </figcaption>
+      </figure>
+    );
+  }
+
+  return (
+    <div className="relative mx-auto w-full max-w-[360px]">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-dark/5 shadow-xl">
+        <Image
+          src={t.imagem.src}
+          alt={t.imagem.alt}
+          width={t.imagem.width}
+          height={t.imagem.height}
+          preload
+          sizes="(max-width: 408px) calc(100vw - 48px), 360px"
+          className="h-full w-full object-cover object-top"
+        />
+      </div>
+    </div>
+  );
 }
 
 /**
  * Molde comum das páginas de tratamento. Todo o texto vem de content/tratamentos;
- * aqui só fica a estrutura: H1 + intro, corpo em H2, antes/depois (quando há
- * caso publicado), FAQ, links relacionados e CTA com mensagem pronta.
+ * aqui só fica a estrutura: H1 + antes/depois em destaque (quando há caso
+ * publicado) + intro, corpo em H2, outros casos, FAQ, links relacionados e CTA
+ * com mensagem pronta.
  */
 export default function PaginaTratamento({ t }: { t: Tratamento }) {
   const whatsapp = waAvaliacaoTratamento(t.mensagem);
-  const comparadores = casos.filter((c) => t.casos?.includes(c.id));
-  const montados = casosMontados.filter((c) => t.casosMontados?.includes(c.id));
+  const destaqueComparador = casos.find((c) => c.id === t.destaque);
+  const destaqueMontado = casosMontados.find((c) => c.id === t.destaque);
+  // O caso do topo não se repete na seção "Antes e depois" mais abaixo.
+  const comparadores = casos.filter((c) => t.casos?.includes(c.id) && c.id !== t.destaque);
+  const montados = casosMontados.filter((c) => t.casosMontados?.includes(c.id) && c.id !== t.destaque);
   const relacionados = t.relacionados.map(tratamentoPorSlug);
   const artigo = t.artigo ? artigoPorSlug(t.artigo) : null;
 
@@ -65,9 +145,11 @@ export default function PaginaTratamento({ t }: { t: Tratamento }) {
           className="pointer-events-none absolute right-[-10%] top-[-10%] h-[420px] w-[420px]
                      rounded-full bg-gold/10 blur-[120px]"
         />
-        <div className="container-main relative grid grid-cols-1 items-center gap-12 pb-16 pt-28
-                        lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:pb-20 lg:pt-32">
-          <div>
+        {/* Grade com três áreas: no celular a ordem é título → foto → texto (a foto
+            aparece logo de cara); no desktop a foto ocupa a coluna da direita. */}
+        <div className="container-main relative grid grid-cols-1 gap-x-16 pb-16 pt-28
+                        lg:grid-cols-[1.1fr_0.9fr] lg:grid-rows-[auto_1fr] lg:pb-20 lg:pt-32">
+          <div className="lg:col-start-1 lg:row-start-1">
             <Breadcrumb
               migalhas={[
                 { nome: 'Início', path: '/' },
@@ -81,6 +163,13 @@ export default function PaginaTratamento({ t }: { t: Tratamento }) {
             >
               {t.nome} em {CIDADE_PRINCIPAL}
             </h1>
+          </div>
+
+          <div className="mt-8 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:self-center">
+            <FotoDoTopo t={t} comparador={destaqueComparador} montado={destaqueMontado} />
+          </div>
+
+          <div className="lg:col-start-1 lg:row-start-2">
             {t.intro.map((p, i) => (
               <p key={i} className="mt-5 max-w-xl text-[17px] leading-relaxed text-muted">
                 <Texto>{p}</Texto>
@@ -100,20 +189,6 @@ export default function PaginaTratamento({ t }: { t: Tratamento }) {
               </a>
             </div>
             <p className="mt-4 text-xs text-muted">Avaliação sem custo &middot; {CRO}</p>
-          </div>
-
-          <div className="relative mx-auto w-full max-w-[360px]">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-dark/5 shadow-xl">
-              <Image
-                src={t.imagem.src}
-                alt={t.imagem.alt}
-                width={t.imagem.width}
-                height={t.imagem.height}
-                preload
-                sizes="(max-width: 408px) calc(100vw - 48px), 360px"
-                className="h-full w-full object-cover object-top"
-              />
-            </div>
           </div>
         </div>
       </header>
@@ -181,7 +256,7 @@ export default function PaginaTratamento({ t }: { t: Tratamento }) {
             <div className="max-w-2xl">
               <span className="section-badge mb-5">Casos clínicos</span>
               <h2 className="section-heading text-4xl lg:text-5xl">
-                Antes e depois de {t.nome.toLowerCase()}
+                {t.destaque ? 'Outros casos de' : 'Antes e depois de'} {t.nome.toLowerCase()}
               </h2>
             </div>
             <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
