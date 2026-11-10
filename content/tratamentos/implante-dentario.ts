@@ -113,6 +113,7 @@ export const implanteDentario: Tratamento = {
     },
   ],
   casos: ['caso-1', 'caso-3'],
+  destaque: 'caso-1',
   relacionados: ['carga-imediata', 'protese-dentaria', 'cirurgia-odontologica'],
   artigo: 'quanto-tempo-dura-um-implante-dentario',
   mensagem: 'implante dentário',

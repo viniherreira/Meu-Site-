@@ -115,6 +115,7 @@ export const cargaImediata: Tratamento = {
     },
   ],
   casosMontados: ['carga-imediata-1'],
+  destaque: 'carga-imediata-1',
   relacionados: ['implante-dentario', 'protese-dentaria', 'cirurgia-odontologica'],
   artigo: 'carga-imediata-dente-fixo-no-mesmo-dia',
   mensagem: 'implante com carga imediata',

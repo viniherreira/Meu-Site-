@@ -118,6 +118,7 @@ export const lenteDeContatoDental: Tratamento = {
     },
   ],
   casosMontados: ['lente-1'],
+  destaque: 'lente-1',
   relacionados: ['estetica-do-sorriso', 'clareamento-dental', 'protese-dentaria'],
   artigo: 'lente-de-contato-dental-estraga-o-dente',
   mensagem: 'lente de contato dental',
