@@ -100,6 +100,7 @@ export const clareamentoDental: Tratamento = {
         'Produtos sem moldeira sob medida e sem acompanhamento têm resultado imprevisível e podem irritar a gengiva. O ideal é avaliar a causa da cor antes de qualquer clareamento.',
     },
   ],
+  casosMontados: ['clareamento-1'],
   relacionados: ['lente-de-contato-dental', 'estetica-do-sorriso'],
   artigo: 'clareamento-dental-doi-mitos-e-verdades',
   mensagem: 'clareamento dental',
@@ -109,5 +110,5 @@ export const clareamentoDental: Tratamento = {
       'Aplicação de gel clareador à base de peróxido no consultório e/ou uso de moldeira individual em casa, com supervisão.',
     acompanhamento: 'Controle da sensibilidade durante o tratamento e manutenção periódica da cor.',
   },
-  atualizadoEm: '2026-10-27',
+  atualizadoEm: '2026-11-10',
 };

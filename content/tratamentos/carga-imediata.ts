@@ -114,6 +114,7 @@ export const cargaImediata: Tratamento = {
         'Carga imediata é o momento em que a prótese é instalada (logo após a cirurgia). Protocolo é o tipo de prótese: uma arcada inteira fixa sobre implantes. Um protocolo pode ou não ser feito com carga imediata.',
     },
   ],
+  casosMontados: ['carga-imediata-1'],
   relacionados: ['implante-dentario', 'protese-dentaria', 'cirurgia-odontologica'],
   artigo: 'carga-imediata-dente-fixo-no-mesmo-dia',
   mensagem: 'implante com carga imediata',
@@ -124,5 +125,5 @@ export const cargaImediata: Tratamento = {
     acompanhamento:
       'Dieta macia nas primeiras semanas, ajustes de mordida e troca pela prótese definitiva após a osseointegração.',
   },
-  atualizadoEm: '2026-10-27',
+  atualizadoEm: '2026-11-10',
 };

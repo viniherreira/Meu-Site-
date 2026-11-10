@@ -42,26 +42,56 @@ export const casos: Caso[] = [
 ];
 
 /**
- * Estas fotos já vêm montadas como antes/depois pela clínica, e todas têm
- * proporção quadrada — por isso a grade usa aspect-square sem cortar nada.
+ * Fotos que já vêm montadas como antes/depois pela clínica. Largura e altura
+ * reais ficam aqui porque nem todas são quadradas (a de carga imediata é retrato).
+ *
+ * As três últimas foram preparadas a partir da pasta imagens/ (cortadas, com o
+ * "antes" sempre primeiro) e têm nome de arquivo descritivo para o Google Imagens.
  */
-export type CasoMontado = { id: string; src: string; alt: string };
+export type CasoMontado = { id: string; src: string; alt: string; width: number; height: number };
 
 export const casosMontados: CasoMontado[] = [
   {
     id: 'exemplo-3',
     src: '/img/exemplo-3.png',
     alt: 'Paciente antes e depois da reabilitação estética — à esquerda, antes; à direita, depois',
+    width: 427,
+    height: 416,
   },
   {
     id: 'exemplo-4',
     src: '/img/exemplo-4.png',
     alt: 'Paciente antes e depois da reabilitação com prótese — à esquerda, antes; à direita, depois',
+    width: 427,
+    height: 419,
   },
   {
     id: 'exemplo-5',
     src: '/img/exemplo-5.png',
     alt: 'Arcada dentária antes e depois do tratamento, em vista aproximada',
+    width: 427,
+    height: 417,
+  },
+  {
+    id: 'clareamento-1',
+    src: '/img/casos/clareamento-dental-antes-depois-suzano.jpg',
+    alt: 'Clareamento dental em Suzano: dentes amarelados antes (à esquerda) e mais claros depois do tratamento (à direita)',
+    width: 738,
+    height: 739,
+  },
+  {
+    id: 'carga-imediata-1',
+    src: '/img/casos/carga-imediata-antes-depois-suzano.jpg',
+    alt: 'Implante com carga imediata em Suzano: paciente sem os dentes superiores antes (à esquerda) e com a prótese fixa depois (à direita)',
+    width: 964,
+    height: 1600,
+  },
+  {
+    id: 'lente-1',
+    src: '/img/casos/lente-de-contato-dental-antes-depois-suzano.jpg',
+    alt: 'Lente de contato dental em Suzano: dentes da frente escurecidos antes (em cima) e sorriso com lentes de porcelana depois (embaixo)',
+    width: 1280,
+    height: 1280,
   },
 ];
 
