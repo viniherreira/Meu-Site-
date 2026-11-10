@@ -190,14 +190,15 @@ export default function PaginaTratamento({ t }: { t: Tratamento }) {
               ))}
               {montados.map((c) => (
                 <figure key={c.id}>
-                  <div className="relative aspect-square overflow-hidden rounded-xl bg-dark/5 ring-1 ring-dark/10">
+                  {/* Proporção original da foto, sem recorte: aqui o caso é o assunto da página. */}
+                  <div className="overflow-hidden rounded-xl bg-dark/5 ring-1 ring-dark/10">
                     <Image
                       src={c.src}
                       alt={c.alt}
-                      width={427}
-                      height={419}
+                      width={c.width}
+                      height={c.height}
                       sizes="(max-width: 768px) calc(100vw - 48px), (max-width: 1024px) calc(50vw - 56px), 340px"
-                      className="h-full w-full object-cover"
+                      className="h-auto w-full"
                     />
                   </div>
                 </figure>

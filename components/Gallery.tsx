@@ -29,15 +29,16 @@ export default function Gallery() {
               key={caso.src}
               initial={{ opacity: 0, y: 14 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.45, delay: i * 0.07 }}
+              transition={{ duration: 0.45, delay: Math.min(i, 5) * 0.07 }}
               className="relative aspect-square overflow-hidden rounded-xl bg-dark/5
                          ring-1 ring-dark/10"
             >
+              {/* A grade é quadrada; a foto em retrato (carga imediata) é recortada no centro, onde fica o sorriso. */}
               <Image
                 src={caso.src}
                 alt={caso.alt}
-                width={427}
-                height={419}
+                width={caso.width}
+                height={caso.height}
                 sizes="(max-width: 640px) calc(100vw - 48px), 340px"
                 className="h-full w-full object-cover"
               />

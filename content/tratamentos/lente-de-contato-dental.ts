@@ -117,6 +117,7 @@ export const lenteDeContatoDental: Tratamento = {
         'Cor, translucidez e formato são definidos no planejamento e aprovados no ensaio. Excesso de branco ou dentes muito volumosos são escolhas que podem ser evitadas.',
     },
   ],
+  casosMontados: ['lente-1'],
   relacionados: ['estetica-do-sorriso', 'clareamento-dental', 'protese-dentaria'],
   artigo: 'lente-de-contato-dental-estraga-o-dente',
   mensagem: 'lente de contato dental',
@@ -126,5 +127,5 @@ export const lenteDeContatoDental: Tratamento = {
       'Planejamento digital, ensaio com resina provisória, preparo mínimo quando necessário e cimentação de lâminas de porcelana.',
     acompanhamento: 'Retorno para conferir a mordida e revisões periódicas; placa noturna para quem tem bruxismo.',
   },
-  atualizadoEm: '2026-10-27',
+  atualizadoEm: '2026-11-10',
 };
