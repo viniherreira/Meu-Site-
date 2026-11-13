@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import PageShell from '@/components/PageShell';
 import Breadcrumb from '@/components/Breadcrumb';
 import CTASection from '@/components/CTASection';
+import InstagramCTA from '@/components/InstagramCTA';
 import JsonLd from '@/components/JsonLd';
 import WhatsAppIcon from '@/components/WhatsAppIcon';
 import { tratamentos } from '@/content/tratamentos';
@@ -160,6 +161,8 @@ export default function SobrePage() {
           </aside>
         </div>
       </section>
+
+      <InstagramCTA fundo="creme" />
 
       <CTASection />
       <JsonLd dados={schemaDoutora} />

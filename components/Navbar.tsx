@@ -5,9 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Instagram, Menu, X } from 'lucide-react';
 import WhatsAppIcon from './WhatsAppIcon';
-import { WA_AGENDAR } from '@/lib/contato';
+import { INSTAGRAM, WA_AGENDAR } from '@/lib/contato';
 
 // Links para páginas reais (antes eram âncoras da página única). "Tratamentos"
 // continua levando à lista da home, que é o hub com um resumo de cada um.
@@ -103,28 +103,43 @@ export default function Navbar() {
             })}
           </nav>
 
-          <a
-            href={WA_AGENDAR}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden items-center gap-2 rounded-full bg-dark px-5 py-2.5 text-sm
-                       font-medium text-white transition-colors duration-200 hover:bg-charcoal lg:inline-flex"
-          >
-            <WhatsAppIcon size={15} />
-            Agendar
-          </a>
+          <div className="flex items-center gap-1 lg:gap-3">
+            {/* Instagram visível sempre, no celular e no computador */}
+            <a
+              href={INSTAGRAM}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram da Dra. Michele Herreira (abre em nova aba)"
+              title="@dra.michele_ no Instagram"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-dark
+                         transition-colors hover:bg-dark/5 hover:text-[#d62976]"
+            >
+              <Instagram size={20} />
+            </a>
 
-          <button
-            type="button"
-            onClick={() => setAberto((v) => !v)}
-            aria-expanded={aberto}
-            aria-controls="menu-mobile"
-            aria-label={aberto ? 'Fechar menu' : 'Abrir menu'}
-            className="-mr-2 flex h-10 w-10 items-center justify-center rounded-full text-dark
-                       transition-colors hover:bg-dark/5 lg:hidden"
-          >
-            {aberto ? <X size={22} /> : <Menu size={22} />}
-          </button>
+            <a
+              href={WA_AGENDAR}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden items-center gap-2 rounded-full bg-dark px-5 py-2.5 text-sm
+                         font-medium text-white transition-colors duration-200 hover:bg-charcoal lg:inline-flex"
+            >
+              <WhatsAppIcon size={15} />
+              Agendar
+            </a>
+
+            <button
+              type="button"
+              onClick={() => setAberto((v) => !v)}
+              aria-expanded={aberto}
+              aria-controls="menu-mobile"
+              aria-label={aberto ? 'Fechar menu' : 'Abrir menu'}
+              className="-mr-2 flex h-10 w-10 items-center justify-center rounded-full text-dark
+                         transition-colors hover:bg-dark/5 lg:hidden"
+            >
+              {aberto ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -158,6 +173,16 @@ export default function Navbar() {
               >
                 <WhatsAppIcon size={17} />
                 Agendar pelo WhatsApp
+              </a>
+              <a
+                href={INSTAGRAM}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setAberto(false)}
+                className="btn-outline mt-3"
+              >
+                <Instagram size={17} aria-hidden="true" />
+                Ver o Instagram @dra.michele_
               </a>
             </nav>
           </motion.div>

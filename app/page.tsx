@@ -10,6 +10,7 @@ import Gallery from '@/components/Gallery';
 import About from '@/components/About';
 import Unidades from '@/components/Unidades';
 import CTASection from '@/components/CTASection';
+import InstagramCTA from '@/components/InstagramCTA';
 import { artigos } from '@/content/blog';
 import { metadataPagina } from '@/lib/seo';
 
@@ -74,6 +75,8 @@ export default function HomePage() {
           </ul>
         </div>
       </section>
+
+      <InstagramCTA />
 
       <CTASection />
     </PageShell>
