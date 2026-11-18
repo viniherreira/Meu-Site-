@@ -4,7 +4,9 @@ Landing page: `https://www.dramicheleherreira.com/lp/implante-carga-imediata`
 
 A página é `noindex` (não aparece no Google orgânico, para não competir com
 `/carga-imediata`) e não tem o menu do site. Tudo nela leva a um de dois caminhos:
-o formulário de avaliação ou o botão de WhatsApp.
+o formulário de avaliação (lead já qualificado) ou o WhatsApp direto, para quem
+prefere conversar antes. Os dois aparecem lado a lado em todas as chamadas e na barra
+fixa do celular.
 
 ## 1. Conversões (Google Tag Manager → Google Ads)
 
@@ -13,7 +15,7 @@ A página envia dois eventos para o `dataLayer` da tag `GTM-K6FRHJCM`:
 | Evento | Quando | Parâmetros |
 |---|---|---|
 | `lp_formulario_envio` | Enviou o formulário (lead qualificado) | `situacao`, `unidade`, `prazo` |
-| `lp_whatsapp_clique` | Clicou em um botão de WhatsApp | `posicao` (`topo`, `hero`, `barra-fixa`) |
+| `lp_whatsapp_clique` | Clicou em um botão de WhatsApp direto (sem formulário) | `posicao` (`topo`, `hero`, `tudo-em-um-dia`, `carga-imediata`, `doutora`, `formulario`, `barra-fixa`) |
 
 No Tag Manager (tagmanager.google.com, contêiner GTM-K6FRHJCM):
 
@@ -88,8 +90,8 @@ implante de silicone, cachorro, veterinário, pdf, o que é
 
 - **Local:** vincular o Perfil da Empresa no Google (as duas unidades).
 - **Ligação/WhatsApp:** (11) 99144-4710.
-- **Sitelinks:** Casos reais, Como funciona, Dúvidas, Agendar avaliação —
-  todos para a LP com âncoras (`#avaliacao`, `#perguntas`).
+- **Sitelinks:** Depoimento em vídeo (`#depoimento`), Dúvidas (`#perguntas`),
+  Agendar avaliação (`#formulario`) — todos para a LP com a âncora.
 - **Imagens:** foto da doutora e o antes/depois de carga imediata (já
   autorizados para o site).
 

@@ -11,8 +11,9 @@ Unidade: Suzano
 Quando quero começar: O quanto antes
 ```
 
-Quem clica direto no botão de WhatsApp manda só a primeira linha. Nesse caso,
-faça as perguntas da seção 7 antes de seguir.
+Quem clica direto no botão de WhatsApp (sem o formulário) manda só:
+"Olá! Vim pelo anúncio do Google e gostaria de saber mais sobre o implante com carga
+imediata." Nesse caso, faça as perguntas da seção 7 antes de seguir.
 
 ---
 
