@@ -8,34 +8,56 @@ o formulário de avaliação (lead já qualificado) ou o WhatsApp direto, para q
 prefere conversar antes. Os dois aparecem lado a lado em todas as chamadas e na barra
 fixa do celular.
 
-## 1. Conversões (Google Tag Manager → Google Ads)
+## 1. Conversões (direto no Google Ads, sem configurar o Tag Manager)
 
-A página envia dois eventos para o `dataLayer` da tag `GTM-K6FRHJCM`:
+**Você não precisa configurar o Google Tag Manager.** A tag `GTM-K6FRHJCM` já está
+no site e já envia as visitas para o Google Ads (conta de conversão
+`AW-18581404442`). Para contar os leads, basta criar as conversões no Google Ads;
+o disparo de cada uma é colocado no código do site.
+
+### Passo a passo (feito por você, no Google Ads)
+
+1. **Metas → Conversões → + Nova ação de conversão → Site.**
+2. Se pedir para escanear, use `dramicheleherreira.com`. Depois escolha
+   **Adicionar uma ação de conversão manualmente**.
+3. Crie a primeira:
+   - Nome: **Lead formulário carga imediata**
+   - Categoria: **Enviar formulário de lead**
+   - Valor: **Não usar um valor** · Contagem: **Uma**
+   - Ação **principal** (é a que o Google usa para otimizar os lances)
+4. Crie a segunda:
+   - Nome: **Clique WhatsApp LP**
+   - Categoria: **Contato**
+   - Valor: **Não usar um valor** · Contagem: **Uma**
+   - Ação **secundária** (só para relatório; assim o Google não otimiza para
+     cliques curiosos)
+5. Em cada uma, na tela de instalação, escolha **Configurar a tag você mesmo**
+   (ou **Usar o snippet de evento**). Aparece um código com
+   `send_to: 'AW-18581404442/XXXXXXXXXXX'`.
+6. **Mande esse código das duas conversões para quem cuida do site.** Ele é
+   colocado no formulário e nos botões de WhatsApp, testado e publicado.
+
+Depois de publicado, em até 24 h o Google Ads mostra o status **Gravando
+conversões**.
+
+### O que o site já envia (referência técnica)
+
+A página registra dois eventos no `dataLayer`:
 
 | Evento | Quando | Parâmetros |
 |---|---|---|
 | `lp_formulario_envio` | Enviou o formulário (lead qualificado) | `situacao`, `unidade`, `prazo` |
 | `lp_whatsapp_clique` | Clicou em um botão de WhatsApp direto (sem formulário) | `posicao` (`topo`, `hero`, `tudo-em-um-dia`, `carga-imediata`, `doutora`, `formulario`, `barra-fixa`) |
 
-No Tag Manager (tagmanager.google.com, contêiner GTM-K6FRHJCM):
+### Alternativa: pelo Tag Manager (só se alguém já usa o GTM)
 
-1. **Acionadores → Novo → Evento personalizado**
-   - Nome do evento: `lp_formulario_envio` → salvar como "LP – formulário"
-   - Nome do evento: `lp_whatsapp_clique` → salvar como "LP – WhatsApp"
-2. **Variáveis → Nova → Variável da camada de dados**: `situacao`, `unidade`,
-   `prazo`, `posicao` (opcional, para relatórios).
-3. No Google Ads, crie duas ações de conversão (Metas → Conversões → Nova →
-   Site → configurar manualmente):
-   - "Lead formulário carga imediata" — categoria *Enviar formulário de lead*,
-     **principal**, contagem *Uma*.
-   - "Clique WhatsApp LP" — categoria *Contato*, **secundária** (a de formulário
-     é mais qualificada; deixar o WhatsApp como secundária evita que o lance
-     otimize para cliques curiosos).
-4. No Tag Manager, crie uma tag **Acompanhamento de conversões do Google Ads**
-   para cada ação (ID e rótulo vêm do Google Ads), cada uma com o seu acionador.
-   Crie também a tag **Vinculador de conversões** com acionador *All Pages*.
-5. Visualize (Preview), envie o formulário de teste na LP e confira se a tag
-   dispara. Depois, **Enviar** para publicar o contêiner.
+Dá o mesmo resultado, com mais passos. Em tagmanager.google.com, contêiner
+`GTM-K6FRHJCM`: crie acionadores de **Evento personalizado** com os nomes
+`lp_formulario_envio` e `lp_whatsapp_clique`, uma tag **Acompanhamento de
+conversões do Google Ads** para cada um (com o ID e o rótulo do passo 5) e uma
+tag **Vinculador de conversões** em *All Pages*. Teste no modo **Visualizar** e
+clique em **Enviar** para publicar. **Não use os dois caminhos ao mesmo tempo**,
+senão cada lead é contado duas vezes.
 
 ## 2. Campanha sugerida
 
