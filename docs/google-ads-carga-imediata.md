@@ -7,7 +7,7 @@ contradisser outro material, **vale este documento**.
 - **Landing page (LP):** `https://www.dramicheleherreira.com/lp/implante-carga-imediata`
 - **Conta do Google Ads:** ID de conversão `AW-18581404442`
 - **Tag instalada no site:** Google Tag Manager `GTM-K6FRHJCM`
-- **WhatsApp da clínica:** (11) 99144-4710
+- **WhatsApp da clínica:** (11) 98677-5000
 - **Roteiro de atendimento:** `docs/roteiro-whatsapp-carga-imediata.md`
 
 ---
@@ -176,7 +176,7 @@ ir ao ar.
 | Sitelinks | **Agendar Avaliação** → `…/lp/implante-carga-imediata#formulario` · **Casos Reais** → `…#depoimento` · **Dúvidas Frequentes** → `…#perguntas` · **Falar com a Clínica** → `…#avaliacao` |
 | Frases de destaque | Carga Imediata · Avaliação Sem Compromisso · 25 Anos de Experiência · Suzano e Ferraz · Atendimento no WhatsApp |
 | Snippet de serviços | Implante Dentário · Carga Imediata · Prótese Protocolo. **"Prótese Flexível" só entra quando a campanha de prótese for ligada.** |
-| Chamada | (11) 99144-4710, como conversão **secundária** |
+| Chamada | (11) 98677-5000, como conversão **secundária** |
 | Local | Vincular o Perfil da Empresa no Google das duas unidades |
 
 Nos **sitelinks** as âncoras estão certas, porque quem clica num sitelink escolheu
