@@ -207,8 +207,10 @@ const CLASSE_WHATSAPP =
 function Chamadas({ posicao, className = '' }: { posicao: string; className?: string }) {
   return (
     <div className={`flex flex-col gap-3 sm:flex-row sm:flex-wrap ${className}`}>
-      <BotaoAvaliacao />
-      <LinkWhatsApp href={WHATSAPP} posicao={posicao} className={CLASSE_WHATSAPP}>
+      {/* No celular os botões ocupam a largura toda; menos respiro lateral evita quebra de linha
+          nos blocos mais estreitos (cartões com borda). */}
+      <BotaoAvaliacao className="max-sm:px-4 max-[380px]:text-[14px]" />
+      <LinkWhatsApp href={WHATSAPP} posicao={posicao} className={`${CLASSE_WHATSAPP} max-sm:px-4 max-[380px]:text-[14px]`}>
         <span className="flex text-[#25D366]"><WhatsAppIcon size={18} /></span>
         Falar direto no WhatsApp
       </LinkWhatsApp>
@@ -486,7 +488,7 @@ export default function LandingCargaImediata() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-2xl border border-border bg-surface p-8">
+            <div className="rounded-2xl border border-border bg-surface p-5 sm:p-8">
               <p className="font-cormorant text-3xl leading-snug text-dark">
                 A carga imediata existe justamente para quem não quer passar o tratamento sem dentes.
               </p>

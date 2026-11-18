@@ -216,13 +216,13 @@ export default function FormularioAvaliacao() {
       <div>
         <button
           type="submit"
-          className="flex w-full items-center justify-center gap-2.5 rounded-full bg-[#25D366] px-6 py-4 text-base
+          className="flex w-full items-center justify-center gap-2.5 whitespace-nowrap rounded-full bg-[#25D366] px-4 py-4 text-base sm:px-6
                      font-semibold text-white shadow-lg shadow-black/10 transition-colors hover:bg-[#1FB855]
                      active:scale-[0.99]"
         >
           <WhatsAppIcon size={19} />
           Quero agendar minha avaliação
-          <ArrowRight size={17} aria-hidden="true" />
+          <ArrowRight size={17} aria-hidden="true" className="hidden sm:block" />
         </button>
         <p className="mt-3 text-center text-xs text-muted">Ao enviar, o WhatsApp abre com a sua mensagem pronta.</p>
       </div>
