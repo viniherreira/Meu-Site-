@@ -190,7 +190,7 @@ Depois siga os blocos 3 e 4.
 ## 8. Mensagem automática fora do horário (WhatsApp Business → Mensagem de ausência)
 
 > Oi! Obrigada pelo contato com a Dra. Michele Herreira 😊 Nosso atendimento é de
-> segunda a sexta, das 9h às 18h. Já recebemos sua mensagem e respondemos logo no
+> segunda a sexta, das 9h às 20h. Já recebemos sua mensagem e respondemos logo no
 > início do próximo horário de atendimento.
 
 ---

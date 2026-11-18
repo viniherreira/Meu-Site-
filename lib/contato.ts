@@ -13,7 +13,7 @@ export const NOME_CLINICA = 'Dra. Michele Herreira — Odontologia';
 export const TELEFONE = '+5511991444710';
 export const TELEFONE_EXIBICAO = '(11) 99144-4710';
 export const EMAIL = 'drmichele@gmail.com';
-export const HORARIO = 'Segunda a sexta, 9h às 18h';
+export const HORARIO = 'Segunda a sexta, 9h às 20h';
 export const CRO = 'CRO-SP 71275';
 
 export type Unidade = {
