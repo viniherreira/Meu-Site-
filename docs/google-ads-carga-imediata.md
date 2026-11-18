@@ -12,17 +12,7 @@ contradisser outro material, **vale este documento**.
 
 ---
 
-## 1. Quem faz o quê
-
-| Quem | Responsabilidade |
-|---|---|
-| **Clínica (você e a Dra.)** | Adicionar a forma de pagamento no Google Ads, definir a verba diária e o CPC máximo, aprovar os textos dos anúncios, confirmar a autorização por escrito do Sr. Cícero e treinar a equipe com o roteiro do WhatsApp. |
-| **Agência** | Configurar as conversões no Tag Manager e no Google Ads (seção 3), criar e subir a campanha (seções 4 a 7), revisar toda semana (seção 9). |
-| **Site** | Já está pronto. A LP envia os eventos de conversão sozinha. **Não é preciso colocar nenhum código novo no site.** |
-
----
-
-## 2. Como o funil funciona
+## 1. Como o funil funciona
 
 ```
 Pesquisa no Google → anúncio → LP
@@ -46,9 +36,9 @@ equipe sabe que o contato veio da campanha.
 
 ---
 
-## 3. Conversões — como configurar do jeito certo
+## 2. Conversões — como configurar do jeito certo
 
-### 3.1 O que a LP já envia
+### 2.1 O que a LP já envia
 
 A cada ação, a página registra um evento no `dataLayer` do Tag Manager:
 
@@ -57,7 +47,7 @@ A cada ação, a página registra um evento no `dataLayer` do Tag Manager:
 | `lp_formulario_envio` | O paciente enviou o formulário completo | `situacao`, `unidade`, `prazo` |
 | `lp_whatsapp_clique` | O paciente clicou num botão de WhatsApp direto | `posicao` (`topo`, `hero`, `tudo-em-um-dia`, `carga-imediata`, `doutora`, `formulario`, `barra-fixa`) |
 
-### 3.2 O que NÃO fazer
+### 2.2 O que NÃO fazer
 
 | Gatilho errado | Por que está errado |
 |---|---|
@@ -66,7 +56,7 @@ A cada ação, a página registra um evento no `dataLayer` do Tag Manager:
 | Envio de formulário automático do Google (`gtm.formSubmit` ou eventos automáticos) | O formulário não é enviado da forma comum (ele abre o WhatsApp), então esse gatilho não dispara. |
 | Colocar código de conversão no site **e** configurar no Tag Manager | Cada lead seria contado **duas vezes**. Use só o Tag Manager. |
 
-### 3.3 Passo a passo (agência)
+### 2.3 Passo a passo (agência)
 
 **No Google Ads** (Metas → Conversões → + Nova ação de conversão → Site →
 Adicionar manualmente), crie duas ações:
@@ -109,7 +99,7 @@ Anote o **ID** (`18581404442`) e o **rótulo** de cada ação.
 
 ---
 
-## 4. Estrutura da campanha
+## 3. Estrutura da campanha
 
 **Comece só com a campanha de Implantes.**
 
@@ -135,12 +125,12 @@ planilha da agência e podem ser importadas como estão:
 
 ---
 
-## 5. Configurações da campanha
+## 4. Configurações da campanha
 
 | Item | Configuração |
 |---|---|
 | Rede | **Só Rede de Pesquisa.** Desmarcar Parceiros de pesquisa e Rede de Display. |
-| Lance | **Maximizar cliques** com **CPC máximo** (valor definido pela clínica). Depois de 15 a 30 conversões, mudar para **Maximizar conversões** (seção 9). |
+| Lance | **Maximizar cliques** com **CPC máximo** (valor definido pela clínica). Depois de 15 a 30 conversões, mudar para **Maximizar conversões** (seção 8). |
 | Verba diária | Definida pela clínica. |
 | Recursos automáticos | **Desligar:** AI Max para Pesquisa, recursos criados automaticamente (inclui expansão de URL final), expansão de público e aplicação automática de recomendações. |
 | Local | Suzano e Ferraz de Vasconcelos, com um raio ao redor de cada unidade (validar com a Dra.). Opção **Presença: pessoas que estão ou estiveram regularmente nos locais**, não "interesse". |
@@ -156,7 +146,7 @@ da clínica. A página já tem botões que levam ao formulário em todas as seç
 
 ---
 
-## 6. Anúncios
+## 5. Anúncios
 
 Use os textos da aba **Anúncios Nov-26 (aprovação Dra)**, com estas trocas. Três
 títulos soam como promessa de resultado, o que o CFO não permite:
@@ -179,7 +169,7 @@ ir ao ar.
 
 ---
 
-## 7. Recursos (extensões)
+## 6. Recursos (extensões)
 
 | Recurso | Conteúdo |
 |---|---|
@@ -194,21 +184,21 @@ ir direto àquela parte. Só a **URL final** do anúncio fica sem âncora.
 
 ---
 
-## 8. Checklist antes de ligar a campanha
+## 7. Checklist antes de ligar a campanha
 
 - [ ] Forma de pagamento adicionada no Google Ads (a conta mostra **saldo esgotado**)
 - [ ] Verba diária e CPC máximo definidos pela clínica
-- [ ] Dra. aprovou os textos, com as 3 trocas da seção 6
-- [ ] As duas conversões da seção 3 criadas, testadas no modo Visualizar e o contêiner publicado
+- [ ] Dra. aprovou os textos, com as 3 trocas da seção 5
+- [ ] As duas conversões da seção 2 criadas, testadas no modo Visualizar e o contêiner publicado
 - [ ] URL final sem `#formulario`
 - [ ] Campanha de prótese flexível **pausada**
-- [ ] Recursos automáticos desligados (seção 5)
+- [ ] Recursos automáticos desligados (seção 4)
 - [ ] Equipe treinada com o `roteiro-whatsapp-carga-imediata.md`, com mensagem de ausência e etiquetas configuradas no WhatsApp Business
 - [ ] Autorização por escrito do Sr. Cícero (nome, foto e vídeo) arquivada na clínica
 
 ---
 
-## 9. Depois que ligar
+## 8. Depois que ligar
 
 **Primeira semana, a cada 2 ou 3 dias:**
 
@@ -236,7 +226,7 @@ própria página de destino.
 
 ---
 
-## 10. Sobre o teste de velocidade da LP
+## 9. Sobre o teste de velocidade da LP
 
 - **SEO 69 no PageSpeed é esperado.** A LP é `noindex` de propósito, para não
   competir no Google com a página `/carga-imediata` do site. O PageSpeed tira
@@ -247,7 +237,7 @@ própria página de destino.
 
 ---
 
-## 11. Regras do CFO para os anúncios (Código de Ética, art. 44)
+## 10. Regras do CFO para os anúncios (Código de Ética, art. 44)
 
 **Avaliação paga:** a avaliação custa R$ 50, descontados do tratamento se o
 paciente fechar. **Nunca** use "grátis", "gratuita", "sem custo" nem o valor da
