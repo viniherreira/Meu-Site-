@@ -7,7 +7,7 @@ contradisser outro material, **vale este documento**.
 - **Landing page (LP):** `https://www.dramicheleherreira.com/lp/implante-carga-imediata`
 - **Conta do Google Ads:** ID de conversão `AW-18581404442`
 - **Tag instalada no site:** Google Tag Manager `GTM-K6FRHJCM`
-- **WhatsApp da clínica:** (11) 99144-4710
+- **WhatsApp da clínica:** (11) 98677-5000
 - **Roteiro de atendimento:** `docs/roteiro-whatsapp-carga-imediata.md`
 
 ---
@@ -135,7 +135,7 @@ planilha da agência e podem ser importadas como estão:
 | Recursos automáticos | **Desligar:** AI Max para Pesquisa, recursos criados automaticamente (inclui expansão de URL final), expansão de público e aplicação automática de recomendações. |
 | Local | Suzano e Ferraz de Vasconcelos, com um raio ao redor de cada unidade (validar com a Dra.). Opção **Presença: pessoas que estão ou estiveram regularmente nos locais**, não "interesse". |
 | Idade | Sugestão da agência: excluir 18 a 24 e 25 a 34 anos. Validar com a Dra. |
-| Horário | No começo, só no horário em que a equipe responde o WhatsApp (seg. a sex., 9h às 18h, ou o horário real da equipe). Lead de anúncio esfria em minutos. Ampliar depois, se a equipe conseguir responder fora do horário. |
+| Horário | No começo, só no horário em que a equipe responde o WhatsApp (seg. a sex., 9h às 20h). Lead de anúncio esfria em minutos. Ampliar depois, se a equipe conseguir responder fora do horário. |
 | **URL final** | `https://www.dramicheleherreira.com/lp/implante-carga-imediata` **sem `#formulario`** |
 | Sufixo do URL final | `utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_term={keyword}` |
 
@@ -176,7 +176,7 @@ ir ao ar.
 | Sitelinks | **Agendar Avaliação** → `…/lp/implante-carga-imediata#formulario` · **Casos Reais** → `…#depoimento` · **Dúvidas Frequentes** → `…#perguntas` · **Falar com a Clínica** → `…#avaliacao` |
 | Frases de destaque | Carga Imediata · Avaliação Sem Compromisso · 25 Anos de Experiência · Suzano e Ferraz · Atendimento no WhatsApp |
 | Snippet de serviços | Implante Dentário · Carga Imediata · Prótese Protocolo. **"Prótese Flexível" só entra quando a campanha de prótese for ligada.** |
-| Chamada | (11) 99144-4710, como conversão **secundária** |
+| Chamada | (11) 98677-5000, como conversão **secundária** |
 | Local | Vincular o Perfil da Empresa no Google das duas unidades |
 
 Nos **sitelinks** as âncoras estão certas, porque quem clica num sitelink escolheu

@@ -94,7 +94,7 @@ export const schemaClinica = UNIDADES.map((u, i) => ({
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
       opens: '09:00',
-      closes: '18:00',
+      closes: '20:00',
     },
   ],
   areaServed: CIDADES_ATENDIDAS.map((c) => ({ '@type': 'City', name: `${c}, SP` })),
