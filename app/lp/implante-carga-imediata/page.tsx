@@ -56,8 +56,11 @@ const MENSAGEM_WHATSAPP =
   'Olá! Vim pelo anúncio do Google e quero agendar uma avaliação para implante com carga imediata.';
 const WHATSAPP = `https://wa.me/${TELEFONE.replace('+', '')}?text=${encodeURIComponent(MENSAGEM_WHATSAPP)}`;
 
-const casoTopo = casosMontados.find((c) => c.id === 'carga-imediata-1')!;
-const comparadores = casos.filter((c) => c.id === 'caso-1' || c.id === 'caso-3');
+// Topo: close do sorriso (prótese fixa sobre implantes). Na seção de casos, o
+// rosto inteiro de carga imediata e a reconstrução do caso 3.
+const casoTopo = casos.find((c) => c.id === 'caso-1')!;
+const casoCargaImediata = casosMontados.find((c) => c.id === 'carga-imediata-1')!;
+const comparadores = casos.filter((c) => c.id === 'caso-3');
 
 const confianca = [
   { icone: BadgeCheck, valor: '25+ anos', rotulo: 'em implantodontia e reabilitação oral' },
@@ -179,22 +182,37 @@ export default function LandingCargaImediata() {
               </h1>
             </div>
 
-            <figure className="mx-auto mt-8 w-full max-w-[260px] sm:max-w-[320px] lg:col-start-2 lg:row-span-2
-                               lg:row-start-1 lg:mt-0 lg:max-w-[380px] lg:self-center">
-              <div className="overflow-hidden rounded-[1.5rem] bg-dark/5 shadow-xl ring-1 ring-dark/10">
-                <Image
-                  src={casoTopo.src}
-                  alt={casoTopo.alt}
-                  width={casoTopo.width}
-                  height={casoTopo.height}
-                  preload
-                  sizes="(max-width: 640px) 260px, (max-width: 1024px) 320px, 380px"
-                  className="h-auto w-full"
-                />
+            {/* Close do sorriso, antes em cima e depois embaixo: a diferença se entende
+                em meio segundo, sem precisar interagir. */}
+            <figure className="mx-auto mt-8 w-full max-w-[460px] lg:col-start-2 lg:row-span-2 lg:row-start-1
+                               lg:mt-0 lg:self-center">
+              <div className="overflow-hidden rounded-[1.5rem] bg-dark shadow-2xl ring-1 ring-dark/10">
+                {[
+                  { src: casoTopo.antes, rotulo: 'Antes', alt: 'antes: sem os dentes superiores' },
+                  { src: casoTopo.depois, rotulo: 'Depois', alt: 'depois: com a prótese fixa sobre implantes' },
+                ].map((f, i) => (
+                  <div key={f.rotulo} className={`relative aspect-video ${i === 1 ? 'border-t-4 border-cream' : ''}`}>
+                    <Image
+                      src={f.src}
+                      alt={`Paciente real em Suzano, ${f.alt}`}
+                      width={1600}
+                      height={900}
+                      preload
+                      sizes="(max-width: 508px) calc(100vw - 48px), 460px"
+                      className="h-full w-full object-cover"
+                    />
+                    <span
+                      className={`absolute left-3 top-3 rounded-full px-3 py-1 text-[11px] font-semibold uppercase
+                                  tracking-[0.14em] shadow ${i === 1 ? 'bg-gold text-dark' : 'bg-dark/75 text-white'}`}
+                    >
+                      {f.rotulo}
+                    </span>
+                  </div>
+                ))}
               </div>
               <figcaption className="mt-3 text-center text-xs text-muted">
-                Antes e depois de paciente real, publicado com autorização. O resultado varia de
-                pessoa para pessoa.
+                Prótese fixa sobre implantes, arcada superior. Paciente real, publicado com
+                autorização. O resultado varia de pessoa para pessoa.
               </figcaption>
             </figure>
 
@@ -288,12 +306,28 @@ export default function LandingCargaImediata() {
               <span className="section-badge mb-5">Casos reais</span>
               <h2 className="section-heading text-4xl lg:text-5xl">Pacientes que voltaram a sorrir</h2>
               <p className="mt-5 leading-relaxed text-muted">
-                Arraste o divisor das fotos para comparar o antes e o depois do mesmo paciente.
+                Antes e depois de pacientes reais. Na foto com o divisor, arraste para comparar.
               </p>
             </div>
-            <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2">
+            <div className="mt-12 grid grid-cols-1 items-center gap-x-10 gap-y-12 md:grid-cols-[minmax(0,300px)_1fr]">
+              <figure className="mx-auto w-full max-w-[300px]">
+                <div className="overflow-hidden rounded-2xl bg-dark/5 ring-1 ring-dark/10">
+                  <Image
+                    src={casoCargaImediata.src}
+                    alt={casoCargaImediata.alt}
+                    width={casoCargaImediata.width}
+                    height={casoCargaImediata.height}
+                    sizes="300px"
+                    className="h-auto w-full"
+                  />
+                </div>
+                <figcaption className="mt-4">
+                  <h3 className="font-cormorant text-xl text-dark">Implante com carga imediata</h3>
+                  <p className="mt-0.5 text-sm text-muted">Antes à esquerda, depois à direita</p>
+                </figcaption>
+              </figure>
               {comparadores.map((c) => (
-                <Comparador key={c.id} caso={c} sizes="(max-width: 768px) calc(100vw - 48px), 520px" />
+                <Comparador key={c.id} caso={c} sizes="(max-width: 768px) calc(100vw - 48px), 680px" />
               ))}
             </div>
             <p className="mt-10 max-w-2xl text-xs leading-relaxed text-muted">
