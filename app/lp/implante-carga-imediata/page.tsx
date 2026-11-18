@@ -59,8 +59,10 @@ export const metadata: Metadata = {
 /** Âncora do formulário: todos os botões de avaliação levam ao começo dele. */
 const ALVO_FORMULARIO = 'formulario';
 
+// Mensagem curta e aberta: quem prefere conversar antes de agendar não precisa passar
+// pelo formulário. A frase "anúncio do Google" ajuda a clínica a saber de onde veio o contato.
 const MENSAGEM_WHATSAPP =
-  'Olá! Vim pelo anúncio do Google e quero agendar uma avaliação para implante com carga imediata.';
+  'Olá! Vim pelo anúncio do Google e gostaria de saber mais sobre o implante com carga imediata.';
 const WHATSAPP = `https://wa.me/${TELEFONE.replace('+', '')}?text=${encodeURIComponent(MENSAGEM_WHATSAPP)}`;
 
 // Antes/depois de carga imediata do Sr. Cícero (o mesmo paciente do vídeo de relato).
@@ -196,6 +198,24 @@ function BotaoAvaliacao({ className = '' }: { className?: string }) {
   );
 }
 
+/** Botão de WhatsApp direto (sem formulário), com contorno verde. */
+const CLASSE_WHATSAPP =
+  'inline-flex items-center justify-center gap-2.5 rounded-full border-2 border-[#25D366] bg-white px-7 py-3 ' +
+  'font-sans text-[15px] font-medium text-dark transition-colors hover:bg-[#25D366]/10';
+
+/** Os dois caminhos lado a lado: formulário (agenda já qualificado) ou WhatsApp direto. */
+function Chamadas({ posicao, className = '' }: { posicao: string; className?: string }) {
+  return (
+    <div className={`flex flex-col gap-3 sm:flex-row sm:flex-wrap ${className}`}>
+      <BotaoAvaliacao />
+      <LinkWhatsApp href={WHATSAPP} posicao={posicao} className={CLASSE_WHATSAPP}>
+        <span className="flex text-[#25D366]"><WhatsAppIcon size={18} /></span>
+        Falar direto no WhatsApp
+      </LinkWhatsApp>
+    </div>
+  );
+}
+
 export default function LandingCargaImediata() {
   return (
     <>
@@ -303,13 +323,7 @@ export default function LandingCargaImediata() {
                 ))}
               </ul>
 
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <BotaoAvaliacao />
-                <LinkWhatsApp href={WHATSAPP} posicao="hero" className="btn-outline">
-                  <WhatsAppIcon size={17} />
-                  Tirar dúvidas no WhatsApp
-                </LinkWhatsApp>
-              </div>
+              <Chamadas posicao="hero" className="mt-9" />
               <p className="mt-4 text-xs text-muted">
                 Responsável técnica: Dra. Michele Herreira &middot; {CRO}
               </p>
@@ -381,7 +395,7 @@ export default function LandingCargaImediata() {
                     </div>
                   ))}
                 </div>
-                <BotaoAvaliacao className="mt-8 w-full sm:w-auto" />
+                <Chamadas posicao="tudo-em-um-dia" className="mt-8" />
                 <p className="mt-4 text-xs leading-relaxed text-muted">
                   A carga imediata depende da avaliação, da tomografia e da firmeza dos implantes
                   medida na cirurgia. Se não for possível no seu caso, você recebe a alternativa
@@ -481,7 +495,7 @@ export default function LandingCargaImediata() {
                 tomografia mostra. Se o seu caso não permitir, isso é explicado na avaliação e você
                 recebe a alternativa mais segura, com um provisório enquanto o implante cicatriza.
               </p>
-              <BotaoAvaliacao className="mt-7" />
+              <Chamadas posicao="carga-imediata" className="mt-7" />
             </div>
           </div>
         </section>
@@ -573,7 +587,7 @@ export default function LandingCargaImediata() {
                   </li>
                 ))}
               </ul>
-              <BotaoAvaliacao className="mt-9" />
+              <Chamadas posicao="doutora" className="mt-9" />
             </div>
           </div>
         </section>
@@ -597,6 +611,13 @@ export default function LandingCargaImediata() {
 
             <div id={ALVO_FORMULARIO} className="mt-8 scroll-mt-3 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0">
               <FormularioAvaliacao />
+              <div className="mt-5 rounded-2xl border border-border bg-cream/60 p-5 text-center">
+                <p className="text-[15px] text-dark">Prefere conversar antes de agendar?</p>
+                <LinkWhatsApp href={WHATSAPP} posicao="formulario" className={`${CLASSE_WHATSAPP} mt-3 w-full whitespace-nowrap !px-4 sm:w-auto`}>
+                  <span className="flex text-[#25D366]"><WhatsAppIcon size={18} /></span>
+                  Chamar direto no WhatsApp
+                </LinkWhatsApp>
+              </div>
             </div>
 
             <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:mt-0">
@@ -669,7 +690,7 @@ export default function LandingCargaImediata() {
       </footer>
 
       {/* Barra fixa no celular: leva ao formulário e some quando ele está na tela */}
-      <BarraFixaCelular alvo={ALVO_FORMULARIO} />
+      <BarraFixaCelular alvo={ALVO_FORMULARIO} whatsapp={WHATSAPP} />
     </>
   );
 }
